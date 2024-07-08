@@ -9,19 +9,10 @@ namespace Component
 	class Transform2D
 	{
 	private:
-		// The transformation matrix (local)
-		Matrix transformMatrix;
-
-		// True if we need to recalculate the decompsition
-		bool isDecompDirty = false;
-
 		Vector3 position;
-		Quaternion rotation;
-		Vector3 scale;
+		float rotation;
+		Vector2 scale;
 
-		void RecalculateDecomp();
-
-		// TODO
 		void SetTransform(Vector2 position, float rotation, Vector2 scale);
 
 	public:
@@ -46,5 +37,6 @@ namespace Component
 		Vector2 GetScale();
 		float GetRotation();
 		float GetRotationDegrees();
+		Matrix GetTransform();
 	};
 }

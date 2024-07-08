@@ -52,13 +52,14 @@ int main(void)
 		rectOne.height = 100 * scale1.y;
 		rectOne.width = 100 * scale1.x;
 		// Red
-		//t2.Translate(0, vec);
-		//float newRot = t2D.GetRotationDegrees() + amountToRot;
-		//t2.SetRotationDegrees(newRot);
+		t2.Translate(0, vec);
+		float newRot = t2D.GetRotationDegrees() + amountToRot;
+		t2.SetRotationDegrees(newRot);
 		
-		//Vector2 pos2 = t2.GetPosition();
-		rectTwo.x = 400;
-		rectTwo.y = 100;
+		Vector2 pos2 = t2.GetPosition();
+		rectTwo.x = 400 + pos2.x;
+		rectTwo.y = 100 + pos2.y;
+		
 		//t2D.Translate(0, vec);
 		//t2D.SetPosition(0, vec);
 		BeginDrawing();
