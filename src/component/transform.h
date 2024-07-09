@@ -4,7 +4,7 @@
 
 #include <raymath.h>
 
-namespace Component
+namespace Astrocore
 {
 	class Transform2D
 	{

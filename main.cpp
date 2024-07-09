@@ -5,14 +5,16 @@
 #include <fstream>
 #include <string>
 
+
+using namespace Astrocore;
 int main(void)
 {
 	// Basic window setup
 	int posX = 0;
 	InitWindow(800, 450, "Asteroids In C");
 	
-	Component::Transform2D t2D = Component::Transform2D();
-	Component::Transform2D t2 = Component::Transform2D();
+	Transform2D t2D = Transform2D();
+	Transform2D t2 = Transform2D();
 	
 	Rectangle rectOne = Rectangle();
 	rectOne.height = 100;

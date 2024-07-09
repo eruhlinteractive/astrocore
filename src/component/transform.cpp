@@ -2,7 +2,7 @@
 #include "transform.h"
 #include <cmath>
 
-using namespace Component;
+using namespace Astrocore;
 
 // NOTE: Per the OpenGL docs, transforms should be done in the order: scale, rotate, translate
 
