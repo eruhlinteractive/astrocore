@@ -1,7 +1,5 @@
 #include <cmath>
 #include <raylib.h>
-#include <iostream>
-#include <fstream>
 #include <raymath.h>
 #include <string>
 #include "src/nodes/node.h"
