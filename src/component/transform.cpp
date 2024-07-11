@@ -1,6 +1,7 @@
 #include <raymath.h>
 #include "transform.h"
 #include <cmath>
+#include <iostream>
 
 using namespace Astrocore;
 
@@ -16,13 +17,31 @@ Transform2D::Transform2D()
 Transform2D::Transform2D(Vector2 initialPosition, float initialRotationDegrees)
 {
 	Transform2D();
-	position = {initialPosition.x, initialPosition.y, 0};
-	rotation = initialRotationDegrees * (PI/180);
+	this->position = {initialPosition.x, initialPosition.y, 0};
+	this->rotation = initialRotationDegrees * (PI/180);
+}
+
+// Copy constructor
+Transform2D::Transform2D(Transform2D* other)
+{
+	this->position = {other->GetPosition().x, other->GetPosition().y, 0};
+	this->scale = other->GetScale();
+	this->rotation = other->GetRotation();
+}
+
+Transform2D::Transform2D(Matrix transformMat)
+{
+	Transform2D();
+	Quaternion quat = QuaternionIdentity();
+	Vector3 tempScale = {1,1,1};
+	MatrixDecompose(transformMat, &position, &quat, &tempScale);
+	this->rotation = QuaternionToEuler(quat).z;
+	this->scale = {tempScale.x, tempScale.y};
 }
 
 void Transform2D::Translate(float x, float y)
 {
-	position = Vector3Add(position, {x,y,0});
+	this->position = Vector3Add(position, {x,y,0});
 }
 
 void Transform2D::RotateDegrees(float rotationDelta)
@@ -67,6 +86,17 @@ void Transform2D::SetTransform(Vector2 position, float rotation, Vector2 scale)
 	Scale(scale);
 	Rotate(rotation);
 	Translate(position.x, position.y);
+}
+
+Matrix Transform2D::GetMatrix()
+{
+	Matrix matToReturn = MatrixIdentity();
+	matToReturn = MatrixMultiply(matToReturn, MatrixScale(scale.x, scale.y, 1));
+	matToReturn = MatrixMultiply(matToReturn, MatrixRotateZ(rotation));
+	matToReturn = MatrixMultiply(matToReturn, MatrixTranslate(position.x, position.y, 0));
+	
+	return matToReturn;
+
 }
 
 Vector2 Transform2D::GetPosition()

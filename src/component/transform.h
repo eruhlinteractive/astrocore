@@ -19,7 +19,11 @@ namespace Astrocore
 		// Constructors
 		Transform2D();
 		Transform2D(Vector2 initialPosition, float rotation);
+		Transform2D(Transform2D* other);
+		Transform2D(Matrix transformMat);
+		//~Transform2D();
 
+	
 		// Modifiers
 		void Translate(float x, float y);
 		void RotateDegrees(float rotationDelta);
@@ -37,6 +41,6 @@ namespace Astrocore
 		Vector2 GetScale();
 		float GetRotation();
 		float GetRotationDegrees();
-		Matrix GetTransform();
+		Matrix GetMatrix();
 	};
 }

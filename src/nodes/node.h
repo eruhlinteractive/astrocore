@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include "../component/transform.h"
+#include <string>
 
 namespace Astrocore
 {/* data */
@@ -12,17 +13,19 @@ namespace Astrocore
     {
     static int NODE_INCREMENTOR;
     private:
+        
         void SetNodeID(); // Called internally to create a runtime-unique id
         // Note: Using raw pointers here since we have no ownership over the 
         // child objects
         int nodeID = -1;
         std::vector<Node*> children;
-        Node* parent;
+        Node* parent = nullptr;
         std::unique_ptr<Transform2D> transform;
         bool isInTree = false;
-        void* registeredTree; // TODO: Make this a pointer to the scene tree
+        void* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
 
     public:
+        std::string name;
         Node(/* args */);
         ~Node();
 
@@ -31,14 +34,15 @@ namespace Astrocore
         int GetNodeID();
         // Heirarchy access
         Node* GetParent();
+        void SetParent(Node* newParent);
         std::vector<Node*> GetAllChildren();
         Node* GetChildAtIndex(int index);
         void AddChild(Node* newChild);
         void RemoveChild(Node* childToRemove);
-        
+
         // Transform manipulation
         Transform2D* GetTransform(); // Local transform
-        Transform2D* GetWorldTransform();   // Worldspace transform
+        Transform2D GetWorldTransform();   // Worldspace transform
 
 
         // Operator overload
