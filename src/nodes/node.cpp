@@ -9,6 +9,7 @@ Node::Node()
 {
     SetNodeID();
     this->transform = std::unique_ptr<Transform2D>(new Transform2D());
+    this->worldTransform = std::unique_ptr<Transform2D>(new Transform2D());
     children = std::vector<Node*>();
 }
 
@@ -69,6 +70,11 @@ void Node::RemoveChild(Node* childToRemove)
     }
 }
 
+void Node::SetInheritsParentTransform(bool shouldInheritParentTransform)
+{
+    this->inheritParentTransform = shouldInheritParentTransform;
+}
+
 void Node::SetParent(Node* newParent)
 {
     if(parent != nullptr)
@@ -79,7 +85,6 @@ void Node::SetParent(Node* newParent)
     {
         parent = newParent;
     }
-    //newParent->AddChild(this);
 }
 
 Node* Node::GetChildAtIndex(int index)
@@ -90,22 +95,33 @@ Node* Node::GetChildAtIndex(int index)
         return nullptr;
     }
     return children.at(index);
-
 }
 
 Transform2D* Node::GetTransform()
 {
+    // TODO: Do this only when the transform changes
+    for(Node* child : children)
+    {
+        child->SetIsWorldMatrixDirty(true);
+    }
+
     return transform.get();
 }
 
 Transform2D Node::GetWorldTransform()
 {
-    if(parent == nullptr)
+    if(parent == nullptr || !inheritParentTransform)
     {
         Transform2D* t = this->transform.get();
         return Transform2D(t);
     }
-   
-    Matrix worldMat = MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix());
-    return Transform2D(worldMat);
+    
+    if(isWorldMatrixDirty)
+    {
+       worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
+       isWorldMatrixDirty = false;
+    }
+
+
+    return *worldTransform;
 }

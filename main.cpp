@@ -27,7 +27,7 @@ int main(void)
 	childNode.name = "childNode";
 
 	parentNode.AddChild(&childNode);
-	childNode.GetTransform()->Translate(200, 0);
+	childNode.GetTransform()->Translate({200, 0});
 
 	Transform2D t2D = new Transform2D();
 
@@ -37,7 +37,7 @@ int main(void)
 	//t2.SetScale(1, 0.5);
 	//rectTwo.width = 100 * t2.GetScale().x;
 	//t2D.Translate(100, 50);
-	parentNode.GetTransform()->Translate(250, 200);
+	parentNode.GetTransform()->Translate({250, 200});
 	SetTargetFPS(60);
 	float rot = 0;
 
@@ -48,11 +48,11 @@ int main(void)
 		float vec = sin(GetTime()) * 20 * GetFrameTime();
 		//std::cout << vec << std::endl;
 		parentNode.GetTransform()->RotateDegrees(45.0 * GetFrameTime());
-		childNode.GetTransform()->RotateDegrees(-45.0 * GetFrameTime());
+		//childNode.GetTransform()->RotateDegrees(-45.0 * GetFrameTime());
 
 		//Vector2 pos1 = t2D.GetPosition();
 		float amountToRot = 1;
-		//parentNode.GetTransform()->Translate(vec,0);
+		parentNode.GetTransform()->TranslateLocal({vec,0});
 		
 		//t2D.RotateDegrees(amountToRot *vec);
 		//parentNode.GetTransform()->Translate(0, vec);

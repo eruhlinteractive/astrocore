@@ -18,9 +18,14 @@ namespace Astrocore
         // Note: Using raw pointers here since we have no ownership over the 
         // child objects
         int nodeID = -1;
+
+        bool inheritParentTransform = true;
+        bool isWorldMatrixDirty = true;    // True if the parent matrix has changed
+
         std::vector<Node*> children;
         Node* parent = nullptr;
         std::unique_ptr<Transform2D> transform;
+        std::unique_ptr<Transform2D> worldTransform;
         bool isInTree = false;
         void* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
 
@@ -39,6 +44,10 @@ namespace Astrocore
         Node* GetChildAtIndex(int index);
         void AddChild(Node* newChild);
         void RemoveChild(Node* childToRemove);
+
+        inline bool GetInheritsParentTransform() {return inheritParentTransform;}
+        void SetInheritsParentTransform(bool shouldInheritParentTransform);
+        inline bool SetIsWorldMatrixDirty(bool isWorldMatrixDirty){ this->isWorldMatrixDirty = isWorldMatrixDirty; }
 
         // Transform manipulation
         Transform2D* GetTransform(); // Local transform

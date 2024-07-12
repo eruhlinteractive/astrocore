@@ -25,16 +25,18 @@ namespace Astrocore
 
 	
 		// Modifiers
-		void Translate(float x, float y);
+		void Translate(Vector2 translation);
+		void TranslateLocal(Vector2 translation);
 		void RotateDegrees(float rotationDelta);
 		void Rotate(float rotationDelta);
 		void Scale(Vector2 scaleDelta);
 
 		// Setters
-		void SetPosition(float x, float y);
+		void SetPosition(Vector2 newPosition);
 		void SetRotationDegrees(float rotationDegrees);
 		void SetRotation(float rotation);
 		void SetScale(float scaleX, float scaleY);
+		void SetMatrix(Matrix newMat);
 
 		// Getters
 		Vector2 GetPosition();

@@ -32,16 +32,28 @@ Transform2D::Transform2D(Transform2D* other)
 Transform2D::Transform2D(Matrix transformMat)
 {
 	Transform2D();
+	SetMatrix(transformMat);
+}
+
+void Transform2D::SetMatrix(Matrix newMat)
+{
 	Quaternion quat = QuaternionIdentity();
 	Vector3 tempScale = {1,1,1};
-	MatrixDecompose(transformMat, &(this->position), &quat, &tempScale);
+	MatrixDecompose(newMat, &(this->position), &quat, &tempScale);
+
 	this->rotation = QuaternionToEuler(quat).z;
 	this->scale = {tempScale.x, tempScale.y};
 }
 
-void Transform2D::Translate(float x, float y)
+void Transform2D::Translate(Vector2 translation)
 {
-	this->position = Vector3Add(position, {x,y,0});
+	this->position = Vector3Add(position, {translation.x, translation.y, 0});
+}
+
+void Transform2D::TranslateLocal(Vector2 translation)
+{
+	Vector2 rotated = Vector2Transform(translation, MatrixRotateZ(rotation));
+	position = Vector3Add(position, {rotated.x, rotated.y, 0});
 }
 
 void Transform2D::RotateDegrees(float rotationDelta)
@@ -60,9 +72,9 @@ void Transform2D::Scale(Vector2 scaleDelta)
 }
 
 // Setters
-void Transform2D::SetPosition(float x, float y)
+void Transform2D::SetPosition(Vector2 newPosition)
 {
-	position = {x, y};
+	position = {newPosition.x, newPosition.y};
 }
 
 void Transform2D::SetRotationDegrees(float rotationDegrees)
@@ -85,7 +97,7 @@ void Transform2D::SetTransform(Vector2 position, float rotation, Vector2 scale)
 {
 	Scale(scale);
 	Rotate(rotation);
-	Translate(position.x, position.y);
+	Translate(position);
 }
 
 Matrix Transform2D::GetMatrix()
