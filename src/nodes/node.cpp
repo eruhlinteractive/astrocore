@@ -105,6 +105,7 @@ Transform2D Node::GetWorldTransform()
         Transform2D* t = this->transform.get();
         return Transform2D(t);
     }
-    Matrix worldMat = MatrixMultiply(parent->GetWorldTransform().GetMatrix(), MatrixInvert(transform->GetMatrix()));
+   
+    Matrix worldMat = MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix());
     return Transform2D(worldMat);
 }

@@ -29,6 +29,8 @@ int main(void)
 	parentNode.AddChild(&childNode);
 	childNode.GetTransform()->Translate(200, 0);
 
+	Transform2D t2D = new Transform2D();
+
 	//rectOne.width = 100 * t2D.GetScale().x;
 	//rectOne.height = 100 * t2D.GetScale().y;
 
@@ -38,20 +40,27 @@ int main(void)
 	parentNode.GetTransform()->Translate(250, 200);
 	SetTargetFPS(60);
 	float rot = 0;
+
+	//parentNode.GetTransform()->RotateDegrees(45);
+	//t2D.Translate(200, 200);
 	while(!WindowShouldClose())
 	{
 		float vec = sin(GetTime()) * 20 * GetFrameTime();
 		//std::cout << vec << std::endl;
+		parentNode.GetTransform()->RotateDegrees(45.0 * GetFrameTime());
+		childNode.GetTransform()->RotateDegrees(-45.0 * GetFrameTime());
 
 		//Vector2 pos1 = t2D.GetPosition();
 		float amountToRot = 1;
-
-		parentNode.GetTransform()->RotateDegrees(amountToRot * 15);
+		//parentNode.GetTransform()->Translate(vec,0);
+		
+		//t2D.RotateDegrees(amountToRot *vec);
 		//parentNode.GetTransform()->Translate(0, vec);
-		Vector2 childPos = childNode.GetTransform()->GetPosition();
-		Vector3 newChild = Vector3Transform({childPos.x, childPos.y, 0}, parentNode.GetTransform()->GetMatrix());
-		rectTwo.x = newChild.x;
-		rectTwo.y = newChild.y;
+		Vector2 childPos = childNode.GetWorldTransform().GetPosition();
+		//Vector3 newChild = Vector3Transform({0, 0, 0}, t2D.GetMatrix());
+		//newChild = Vector3Transform(newChild, MatrixRotateZ(t2D.GetRotation()));
+		rectTwo.x = childPos.x;
+		rectTwo.y = childPos.y;
 
 		Vector2 parentPos = parentNode.GetWorldTransform().GetPosition();
 		rectOne.x = parentPos.x;
@@ -59,8 +68,8 @@ int main(void)
 
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
-		DrawRectanglePro(rectOne, {50,50}, parentNode.GetWorldTransform().GetRotation(), BLUE);
-		DrawRectanglePro(rectTwo, {50,50}, childNode.GetWorldTransform().GetRotation(), RED);
+		DrawRectanglePro(rectOne, {50,50}, parentNode.GetWorldTransform().GetRotationDegrees(), BLUE);
+		DrawRectanglePro(rectTwo, {50,50}, childNode.GetWorldTransform().GetRotationDegrees(), RED);
 		
 		DrawLine(400, 0, 400, 450, ORANGE);
 		DrawLine(100, 0, 100, 450, ORANGE);
