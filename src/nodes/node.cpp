@@ -13,6 +13,11 @@ Node::Node()
     children = std::vector<Node*>();
 }
 
+Node::Node(std::string name):Node()
+{
+    this->name = name;
+}
+
 Node::~Node()
 {
     if(isInTree)

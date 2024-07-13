@@ -7,7 +7,8 @@
 #include <string>
 
 namespace Astrocore
-{/* data */
+{
+    class SceneTree;
     class Node
     {
     static int NODE_INCREMENTOR;
@@ -26,15 +27,16 @@ namespace Astrocore
         std::unique_ptr<Transform2D> transform;
         std::unique_ptr<Transform2D> worldTransform;
         bool isInTree = false;
-        void* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
+        SceneTree* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
 
     public:
         std::string name;
-        Node(/* args */);
+        Node();
+        Node(std::string name);
         ~Node();
 
-        void OnTreeEnter(void* tree) { isInTree = true;};
-        void OnTreeExit()  { isInTree = false;};
+        virtual void OnTreeEnter(SceneTree* tree) { isInTree = true;};
+        virtual void OnTreeExit()  { isInTree = false;};
         int GetNodeID();
         // Heirarchy access
         Node* GetParent();

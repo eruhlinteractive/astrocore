@@ -28,7 +28,8 @@ namespace Astrocore
         {
             spdlog::error(errorEntry);
         }
-
+        // TODO: Add writing to files
+        // TODO: Add assert functionality
     };
 }
 

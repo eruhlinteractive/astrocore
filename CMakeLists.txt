@@ -4,9 +4,10 @@ project(CGame)
 add_executable(raylib_game main.cpp 
 src/component/transform.cpp
 src/nodes/node.cpp
-src/systems/debug.h)
+src/systems/debug.h
+src/systems/scenetree.cpp
+src/systems/game.cpp
+testscene.cpp)
 
-## Maybe not needed?
-#set(CMAKE_PREFIX_PATH "${VCPKG_ROOT}/installed/x64-linux")
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(raylib_game raylib spdlog::spdlog -lGL -lm -lpthread -ldl -lrt -lX11)

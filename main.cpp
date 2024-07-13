@@ -2,20 +2,26 @@
 #include <raylib.h>
 #include <raymath.h>
 #include <string>
-#include "src/nodes/node.h"
+//#include "src/nodes/node.h"
 #include <fmt/core.h>
 
-#include "src/systems/debug.h"
+#include "src/systems/game.h"
+#include "testscene.cpp"
+//#include "src/systems/debug.h"
 
 using namespace Astrocore;
 int main(void)
 {
-	DBG_LOG("This is a regular print line");
-	DBG_WARN("This is a warning...");
-	DBG_ERR("This is an error!");
+
+	Game* myGame = new Game("Space Miner", 1280, 720);
+	//std::shared_ptr<TestScene> testScn = 
+	std::shared_ptr<Node> nodeShared = std::shared_ptr<TestScene>(new TestScene());
+	myGame->GetSceneTree()->SetCurrentScene(nodeShared);
+	myGame->Run();
+	/*
 	// Basic window setup
 	int posX = 0;
-	InitWindow(800, 450, "Asteroids In C");
+	InitWindow(800, 450, "Space Miner Game");
 	
 	Rectangle rectOne = Rectangle();
 	rectOne.height = 100;
@@ -85,5 +91,6 @@ int main(void)
 		EndDrawing(); 
 	}
 	CloseWindow();
+	*/
 	return 0;
 }
