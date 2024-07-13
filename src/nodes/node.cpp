@@ -1,6 +1,6 @@
 #include "node.h"
 #include <algorithm>
-#include <raymath.h>
+#include <memory>
 using namespace Astrocore;
 
 int Node::NODE_INCREMENTOR = 0;
@@ -20,10 +20,10 @@ Node::Node(std::string name):Node()
 
 Node::~Node()
 {
-    if(isInTree)
-    {
-        // TODO: De-register from tree (which will call OnTreeExit)
-    }
+    //if(isInTree)
+    //{
+    //    // TODO: De-register from tree (which will call OnTreeExit)
+    //}
 
     if(parent != nullptr)
     {
@@ -51,6 +51,10 @@ int Node::GetNodeID()
     return nodeID;
 }
 
+void EnterTree(SceneTree* tree)
+{
+    //tree->RegisterToTree(TreeNode::weak_from_this());
+}
 void Node::AddChild(Node* newChild)
 {
     std::vector<Node*>::iterator it = std::find(children.begin(), children.end(), newChild);

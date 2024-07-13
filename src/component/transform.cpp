@@ -1,7 +1,4 @@
-#include <raymath.h>
 #include "transform.h"
-#include <cmath>
-#include <iostream>
 
 using namespace Astrocore;
 

@@ -1,8 +1,9 @@
 #ifndef GAME
 #define GAME
 #include <string>
-#include <raylib.h>
 #include "scenetree.h"
+#include "renderer.h"
+
 namespace Astrocore
 {
     class Game
@@ -10,6 +11,7 @@ namespace Astrocore
     private:
         inline static std::unique_ptr<SceneTree> sceneTree = std::unique_ptr<SceneTree>(new SceneTree());
         static void* physicsSystem; // TODO
+        inline static std::unique_ptr<Renderer> renderer = std::unique_ptr<Renderer>(new Renderer()); 
         
         
     public:

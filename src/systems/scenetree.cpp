@@ -4,7 +4,7 @@ using namespace Astrocore;
 SceneTree::SceneTree()
 {
     SceneTree::created = true;
-    treeRoot = std::unique_ptr<Node>(new Node("root"));
+    treeRoot = std::unique_ptr<TreeNode>(new TreeNode());
 }
 
 SceneTree::~SceneTree()
@@ -12,25 +12,25 @@ SceneTree::~SceneTree()
     treeRoot.reset();
 }
 
-std::weak_ptr<Node> SceneTree::GetRoot()
+std::weak_ptr<TreeNode> SceneTree::GetRoot()
 {
     return currentScene;
 }
 
-void SceneTree::SetCurrentScene(std::weak_ptr<Node> newSceneRoot)
+void SceneTree::SetCurrentScene(std::weak_ptr<TreeNode> newSceneRoot)
 {
-    currentScene = newSceneRoot;
-    newSceneRoot.lock()->OnTreeEnter(this);
+    this->currentScene = newSceneRoot;
+    RegisterToTree(newSceneRoot);
 }
 
-void SceneTree::Update(float deltaTime)
+void SceneTree::RegisterToTree(std::weak_ptr<TreeNode> nodeToRegister)
 {
-    // Cascade the update down the tree
-    treeRoot->Update(deltaTime);
+    drawnNodesInScene->push_back(nodeToRegister);
+    nodeToRegister.lock()->EnterTree(this);
 }
 
-void SceneTree::FixedUpdate(float deltaTime)
+void SceneTree::DeRegisterToTree(std::weak_ptr<TreeNode> nodeToDeRegister)
 {
-    // Cascade the fixed update down the tree
-    treeRoot->FixedUpdate(deltaTime);
+    //drawnNodesInScene->erase();
+    // TODO: Find in tree and push 
 }

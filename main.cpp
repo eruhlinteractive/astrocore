@@ -1,10 +1,5 @@
 #include <cmath>
-#include <raylib.h>
-#include <raymath.h>
 #include <string>
-//#include "src/nodes/node.h"
-#include <fmt/core.h>
-
 #include "src/systems/game.h"
 #include "testscene.cpp"
 //#include "src/systems/debug.h"

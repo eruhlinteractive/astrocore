@@ -5,11 +5,11 @@
 #include <memory>
 #include "../component/transform.h"
 #include <string>
-
+#include "../systems/scenetree.h"
+#include "treenode.h"
 namespace Astrocore
 {
-    class SceneTree;
-    class Node
+    class Node : public TreeNode
     {
     static int NODE_INCREMENTOR;
     private:
@@ -18,7 +18,6 @@ namespace Astrocore
         // Note: Using raw pointers here since we have no ownership over the 
         // child objects
         int nodeID = -1;
-
         bool inheritParentTransform = true;
         bool isWorldMatrixDirty = true;    // True if the parent matrix has changed
 
@@ -27,7 +26,7 @@ namespace Astrocore
         std::unique_ptr<Transform2D> transform;
         std::unique_ptr<Transform2D> worldTransform;
         bool isInTree = false;
-        SceneTree* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
+        //SceneTree* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
 
     public:
         std::string name;
@@ -35,8 +34,10 @@ namespace Astrocore
         Node(std::string name);
         ~Node();
 
-        virtual void OnTreeEnter(SceneTree* tree) { isInTree = true;};
-        virtual void OnTreeExit()  { isInTree = false;};
+        void OnTreeEnter();
+        void OnTreeExit();
+        //virtual void EnterTree(SceneTree* tree);
+        //virtual void ExitTree();
         int GetNodeID();
         // Heirarchy access
         Node* GetParent();
@@ -45,10 +46,6 @@ namespace Astrocore
         Node* GetChildAtIndex(int index);
         void AddChild(Node* newChild);
         void RemoveChild(Node* childToRemove);
-
-        // Gameloop
-        virtual void Update(float deltaTime){};
-        virtual void FixedUpdate(float deltaTime){};
 
         inline bool GetInheritsParentTransform() {return inheritParentTransform;}
         void SetInheritsParentTransform(bool shouldInheritParentTransform);

@@ -20,15 +20,12 @@ void Game::Run()
         // TODO: Update scene tree, run physics/rendering 
 
         // Update
-        sceneTree->Update(GetFrameTime());
+        sceneTree->GetRoot().lock()->Update(GetFrameTime());
         // Physics Update
 
 
         // Render
-        // TODO: Placeholder
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        EndDrawing();
+       renderer->Render(sceneTree->drawnNodesInScene.get());
     }
 
     // Cleanup
