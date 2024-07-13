@@ -3,10 +3,13 @@
 #include <raymath.h>
 #include <string>
 #include "src/nodes/node.h"
+#include <spdlog>
 
 using namespace Astrocore;
 int main(void)
 {
+
+	//spdlog::info("Welcome to spdlog");
 	// Basic window setup
 	int posX = 0;
 	InitWindow(800, 450, "Asteroids In C");

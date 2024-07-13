@@ -1,6 +1,5 @@
 #ifndef TRANSFORM2D
 #define TRANSFORM2D
-#endif // !TRANSFORM2D
 
 #include <raymath.h>
 
@@ -46,3 +45,4 @@ namespace Astrocore
 		Matrix GetMatrix();
 	};
 }
+#endif // !TRANSFORM2D

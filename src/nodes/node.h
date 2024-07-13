@@ -1,6 +1,5 @@
 #ifndef NODE
 #define NODE
-#endif
 
 #include <vector>
 #include <memory>
@@ -45,11 +44,16 @@ namespace Astrocore
         void AddChild(Node* newChild);
         void RemoveChild(Node* childToRemove);
 
+        // Gameloop
+        virtual void Update(float deltaTime){};
+        virtual void FixedUpdate(float deltaTime){};
+
         inline bool GetInheritsParentTransform() {return inheritParentTransform;}
         void SetInheritsParentTransform(bool shouldInheritParentTransform);
-        inline bool SetIsWorldMatrixDirty(bool isWorldMatrixDirty){ this->isWorldMatrixDirty = isWorldMatrixDirty; }
+        inline void SetIsWorldMatrixDirty(bool isWorldMatrixDirty){ this->isWorldMatrixDirty = isWorldMatrixDirty; }
 
         // Transform manipulation
+        // TODO: Have the two transforms linked, so updating one also updates the other
         Transform2D* GetTransform(); // Local transform
         Transform2D GetWorldTransform();   // Worldspace transform
 
@@ -58,3 +62,4 @@ namespace Astrocore
         inline bool operator==(Node& other){return other.GetNodeID() == nodeID; }
     };
 }
+#endif
