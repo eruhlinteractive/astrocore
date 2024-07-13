@@ -3,13 +3,16 @@
 #include <raymath.h>
 #include <string>
 #include "src/nodes/node.h"
-#include <spdlog>
+#include <fmt/core.h>
+
+#include "src/systems/debug.h"
 
 using namespace Astrocore;
 int main(void)
 {
-
-	//spdlog::info("Welcome to spdlog");
+	DBG_LOG("This is a regular print line");
+	DBG_WARN("This is a warning...");
+	DBG_ERR("This is an error!");
 	// Basic window setup
 	int posX = 0;
 	InitWindow(800, 450, "Asteroids In C");
