@@ -146,18 +146,8 @@ Transform2D Node::GetWorldTransform()
     // TODO: Fix the dirty flag here
     if(isWorldMatrixDirty)
     {
-    //worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
-        Matrix mat = this->transform->GetMatrix();
-        DBG_LOG(std::to_string(transform->GetRotationDegrees()));
-        this->worldTransform->SetMatrix(mat);
-        //Matrix newMat = this->transform->GetMatrix();
-        DBG_LOG(std::to_string(worldTransform->GetRotationDegrees()));
-
-        //worldTransform->SetMatrix(newMat);
+        this->worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
         isWorldMatrixDirty = false;
-        DBG_LOG("-- Updated world transform");
     }
-
-    DBG_LOG("Got thing");
     return *worldTransform;
 }

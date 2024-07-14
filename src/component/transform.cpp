@@ -37,9 +37,11 @@ void Transform2D::SetMatrix(Matrix newMat)
 	Quaternion quat = QuaternionIdentity();
 	Vector3 tempScale = {1,1,1};
 	Transform2D::MatrixDecompose(newMat, &(this->position), &quat, &tempScale);
-
     this->scale = {tempScale.x, tempScale.y};
-	this->rotation = QuaternionToEuler(quat).z;
+
+    // 'Normalize' the rotation by applying the inverse scale factor to the matrix
+    Matrix inverseScale = MatrixScale(1.0f/ scale.x, 1.0f / scale.y, 1.0f);
+	this->rotation = QuaternionToEuler(QuaternionFromMatrix(MatrixMultiply(newMat, inverseScale))).z;
 }
 
 void Transform2D::Translate(Vector2 translation)
@@ -100,15 +102,11 @@ void Transform2D::SetTransform(Vector2 position, float rotation, Vector2 scale)
 Matrix Transform2D::GetMatrix()
 {
 	Matrix matToReturn = MatrixIdentity();
-    float rotCopy = rotation;
-    //if(abs(rotCopy) >= PI)
-    //{
-    //    rotCopy = -(rotCopy- PI);
-    //}
-
-    matToReturn = MatrixMultiply(matToReturn, MatrixRotateZ(rotCopy));
-    matToReturn = MatrixMultiply(matToReturn, MatrixScale(scale.x, scale.y, 1));
-	matToReturn = MatrixMultiply(matToReturn, MatrixTranslate(position.x, position.y, 0));
+    matToReturn = MatrixMultiply(matToReturn, MatrixScale(scale.x, scale.y, 1)); 
+    matToReturn = MatrixMultiply(matToReturn, MatrixRotateZ(rotation));
+    matToReturn = MatrixMultiply(matToReturn, MatrixTranslate(position.x, position.y, 0));
+    //
+	
      
 	return matToReturn;
 }

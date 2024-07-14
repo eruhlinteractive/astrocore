@@ -18,7 +18,7 @@ int main(void)
 	pts.push_back({7,-6});
 
 	testScn->sn = new ShapeNode( (Shape().SetLineThickness(4).FromPoints(pts)) );
-	testScn->sn->GetTransform()->Scale({2,2});
+	testScn->sn->GetTransform()->Scale({5,5});
 	testScn->sn->GetTransform()->Translate({100, 200});
 	testScn->sn->SetParent(testScn.get());
 	//testScn->AddChild(testScn->sn); // TODO: This is broken
