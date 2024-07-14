@@ -3,6 +3,7 @@
 #include <string>
 #include "scenetree.h"
 #include "renderer.h"
+#include "debug.h"
 
 namespace Astrocore
 {

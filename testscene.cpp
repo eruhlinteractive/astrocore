@@ -10,7 +10,7 @@ class TestScene : public Node
     void EnterTree(SceneTree *tree)
     {
         //Node::OnTreeEnter(tree);
-        DBG_LOG("Hello from inside the new scene!");
+        DBG_WARN("Hello from inside the new scene!");
         this->isDrawn = true;
         name = "testScene";
         // parentNode.GetTransform()->RotateDegrees(45);
@@ -19,12 +19,12 @@ class TestScene : public Node
 
     void Update(float deltaTime)
     {
-
+        GetTransform()->Rotate(deltaTime);
     }
 
     void Draw()
     {
-        DrawRectangle(100,100,100,100, RED);
+        DrawRectanglePro({100,100,100,100}, {50,50},GetWorldTransform().GetRotationDegrees(), RED);
     }
 };
 

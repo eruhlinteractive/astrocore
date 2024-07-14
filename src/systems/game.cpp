@@ -1,9 +1,9 @@
 #include "game.h"
-
 using namespace Astrocore;
 
 Game::Game(std::string title)
-{
+{   
+    Debug::init();
     // Initialize window
     InitWindow(1280, 720, title.c_str());
 }

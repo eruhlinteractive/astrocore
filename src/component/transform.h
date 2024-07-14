@@ -13,6 +13,7 @@ namespace Astrocore
 		Vector2 scale;
 
 		void SetTransform(Vector2 position, float rotation, Vector2 scale);
+		void MatrixDecompose(Matrix matrix, Vector3* translation, Quaternion* rotation, Vector3* scale);
 
 	public:
 		// Constructors

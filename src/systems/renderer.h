@@ -2,7 +2,7 @@
 #define RENDERER
 
 #ifndef RAYLIB_H
-#include <raylib/raylib.h>
+#include <raylib.h>
 #endif // !RAYLIB_H
 
 #include <memory>
