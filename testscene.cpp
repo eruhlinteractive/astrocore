@@ -5,15 +5,13 @@
 
 
 using namespace Astrocore;
+
 class TestScene : public Node
 {
-    private:
-    ShapeNode sn;
     public:
+    ShapeNode* sn;
     void EnterTree(SceneTree *tree)
     {
-       this->sn = ShapeNode();
-
         //Node::OnTreeEnter(tree);
         DBG_WARN("Hello from inside the new scene!");
         this->isDrawn = true;
@@ -24,12 +22,17 @@ class TestScene : public Node
 
     void Update(float deltaTime)
     {
+        Node::Update(deltaTime);    // Base class call
+
         GetTransform()->Rotate(deltaTime);
+        sn->GetTransform()->Rotate(-deltaTime * 2);
     }
 
     void Draw()
     {
-        DrawRectanglePro({100,100,100,100}, {50,50},GetWorldTransform().GetRotationDegrees(), RED);
+        sn->Draw();
+        Vector2 worldPos = GetWorldTransform().GetPosition();
+        DrawRectanglePro({worldPos.x,worldPos.y,100,100}, {50,50},GetWorldTransform().GetRotationDegrees(), RED);
     }
 };
 

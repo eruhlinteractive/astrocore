@@ -51,6 +51,8 @@ namespace Astrocore
         void SetInheritsParentTransform(bool shouldInheritParentTransform);
         inline void SetIsWorldMatrixDirty(bool isWorldMatrixDirty){ this->isWorldMatrixDirty = isWorldMatrixDirty; }
 
+        void Update(float deltaTime) override;
+        //void FixedUpdate(float deltaTime) override; // TODO:
         // Transform manipulation
         // TODO: Have the two transforms linked, so updating one also updates the other
         Transform2D* GetTransform(); // Local transform

@@ -39,7 +39,7 @@ namespace Astrocore
         // Log a line to the console/file log
         static inline void LogLine(std::string logEntry)
         {
-            spdlog::info(logEntry + "\n");
+            spdlog::info(logEntry);
         };
 
         static inline void LogWarning(std::string warningEntry)

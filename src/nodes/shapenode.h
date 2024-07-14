@@ -23,8 +23,9 @@ namespace Astrocore
     public:
         ShapeNode();
         ShapeNode(Shape initialShape);
+        //~ShapeNode();
         void AddShape(Shape newShape);
-        void Draw();
+        void Draw() override;
 
     };
 
@@ -49,16 +50,17 @@ struct Shape
         rotationOffset = rotOffset;
     }
 
-    void AsRect(float height, float width)
+    Shape AsRect(float height, float width)
     {
         points.clear();
         points.push_back({height, width});
         points.push_back({-height, width});
         points.push_back({-height, -width});
         points.push_back({height, -width});
+        return *this;
     }
 
-    void AsCircle(float radius, int resolution)
+    Shape AsCircle(float radius, int resolution)
     {
         float pointOffset = (2.0 * PI) / resolution;
         float currAngle = 0;
@@ -68,6 +70,14 @@ struct Shape
             currAngle = i * pointOffset;
             points.push_back({cos(currAngle) * radius, sin(currAngle)* radius});
         }
+
+        return *this;
+    }
+
+    Shape SetLineThickness(float newThick)
+    {
+        lineWidth = newThick;
+        return *this;
     }
 };
 }

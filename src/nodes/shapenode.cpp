@@ -15,7 +15,9 @@ ShapeNode::ShapeNode(Shape initialShape) : ShapeNode()
 
 void ShapeNode::Draw()
 {
-    for(auto shape : this->shapesToDraw)
+
+    Matrix transMat = GetWorldTransform().GetMatrix();
+    for(auto shape : shapesToDraw)
     {
         if(shape.isFilled)
         {
@@ -25,11 +27,12 @@ void ShapeNode::Draw()
         {
             for(int i=0; i < shape.points.size() -1; i++ )
             {
-                DrawLineEx(shape.points[i], shape.points[i+1], shape.lineWidth, shape.color);
+
+                DrawLineEx(Vector2Transform(shape.points[i],transMat), Vector2Transform(shape.points[i+1],transMat), shape.lineWidth, shape.color);
             }
             if(shape.isClosed)
             {
-                DrawLineEx(shape.points[shape.points.size()-1], shape.points[0], shape.lineWidth, shape.color);
+                DrawLineEx(Vector2Transform(shape.points[shape.points.size()-1],transMat), Vector2Transform(shape.points[0], transMat), shape.lineWidth, shape.color);
             }
         }
     }

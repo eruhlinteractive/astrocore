@@ -93,6 +93,7 @@ void Node::SetParent(Node* newParent)
     if(newParent != parent)
     {
         parent = newParent;
+        parent->AddChild(this);
     }
 }
 
@@ -104,6 +105,14 @@ Node* Node::GetChildAtIndex(int index)
         return nullptr;
     }
     return children.at(index);
+}
+
+void Node::Update(float deltaTime)
+{
+    for(Node* child : children)
+    {
+        child->Update(deltaTime);
+    }
 }
 
 Transform2D* Node::GetTransform()
@@ -125,11 +134,13 @@ Transform2D Node::GetWorldTransform()
         return Transform2D(t);
     }
     
-    if(isWorldMatrixDirty)
-    {
-       worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
-       isWorldMatrixDirty = false;
-    }
+
+    // TODO: Fix the dirty flag here
+    //if(isWorldMatrixDirty)
+    //{
+    worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
+    //isWorldMatrixDirty = false;
+    //}
 
 
     return *worldTransform;
