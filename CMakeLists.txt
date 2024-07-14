@@ -9,7 +9,8 @@ src/systems/scenetree.cpp
 src/systems/game.cpp
 src/systems/renderer.cpp
 testscene.cpp
-src/nodes/treenode.h)
+src/nodes/treenode.h
+src/nodes/shapenode.h)
 
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(raylib_game raylib spdlog::spdlog -lGL -lm -lpthread -ldl -lrt -lX11)

@@ -1,12 +1,12 @@
 #ifndef TREENODE
 #define TREENODE
-
+#include "../component/signaler.h"
 
 namespace Astrocore
 {
     // An object that is able to be registered/interacted with in a tree
     class SceneTree; // Forward declaration
-    class TreeNode 
+    class TreeNode : public Signaler, Observer
     {
     private:
         bool isInTree = false;
@@ -16,6 +16,7 @@ namespace Astrocore
         int zIndex = 0;
     
     public:
+        TreeNode(){};
         virtual void EnterTree(SceneTree* tree){};
         virtual void ExitTree(){};
 

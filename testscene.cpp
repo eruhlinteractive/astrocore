@@ -1,14 +1,19 @@
 #ifndef TESTSCENE
 #define TESTSCENE
-#include "src/nodes/node.h"
+#include "src/nodes/shapenode.h"
 #include "src/systems/debug.h"
 
 
 using namespace Astrocore;
 class TestScene : public Node
 {
+    private:
+    ShapeNode sn;
+    public:
     void EnterTree(SceneTree *tree)
     {
+       this->sn = ShapeNode();
+
         //Node::OnTreeEnter(tree);
         DBG_WARN("Hello from inside the new scene!");
         this->isDrawn = true;
