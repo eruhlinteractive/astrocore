@@ -26,6 +26,8 @@ void Game::Run()
 
         // Render
        renderer->Render(sceneTree->drawnNodesInScene.get());
+
+       DBG_LOG("End Frame");
     }
 
     // Cleanup

@@ -23,16 +23,17 @@ class TestScene : public Node
     void Update(float deltaTime)
     {
         Node::Update(deltaTime);    // Base class call
-
-        GetTransform()->Rotate(deltaTime);
-        sn->GetTransform()->Rotate(-deltaTime * 2);
+        GetTransform(); // Test
+        //GetTransform()->Rotate(deltaTime);
+        sn->GetTransform()->Rotate(deltaTime);
+        DBG_LOG(std::to_string(sn->GetWorldTransform().GetRotationDegrees()));
     }
 
     void Draw()
     {
         sn->Draw();
         Vector2 worldPos = GetWorldTransform().GetPosition();
-        DrawRectanglePro({worldPos.x,worldPos.y,100,100}, {50,50},GetWorldTransform().GetRotationDegrees(), RED);
+        //DrawRectanglePro({worldPos.x,worldPos.y,100,100}, {50,50},GetWorldTransform().GetRotationDegrees(), RED);
     }
 };
 

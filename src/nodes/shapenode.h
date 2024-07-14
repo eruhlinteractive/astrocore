@@ -79,6 +79,13 @@ struct Shape
         lineWidth = newThick;
         return *this;
     }
+
+    Shape FromPoints(std::vector<Vector2> newPoints)
+    {
+        this->points.clear();
+        points = newPoints;
+        return *this;
+    }
 };
 }
 

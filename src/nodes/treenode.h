@@ -10,8 +10,9 @@ namespace Astrocore
     {
     private:
         bool isInTree = false;
-        SceneTree* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
+        
     protected:
+        SceneTree* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
         bool isDrawn = false;
         int zIndex = 0;
     

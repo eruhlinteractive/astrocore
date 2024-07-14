@@ -11,12 +11,22 @@ int main(void)
 	Game* myGame = new Game("Space Miner", 1280, 720);
 	std::shared_ptr<TestScene> testScn = std::shared_ptr<TestScene>(new TestScene());
 	std::shared_ptr<Node> nodeShared = testScn;
-	testScn->sn = new ShapeNode( (Shape().AsRect(50,75).SetLineThickness(4)) );
+	std::vector<Vector2> pts = std::vector<Vector2>();
+	pts.push_back({0,3});
+	pts.push_back({-7, -6});
+	pts.push_back({0,14});
+	pts.push_back({7,-6});
+
+	testScn->sn = new ShapeNode( (Shape().SetLineThickness(4).FromPoints(pts)) );
+	testScn->sn->GetTransform()->Scale({2,2});
 	testScn->sn->GetTransform()->Translate({100, 200});
-	//testScn->sn->SetParent(testScn.get());
-	testScn->AddChild(testScn->sn); // TODO: This is broken
+	testScn->sn->SetParent(testScn.get());
+	//testScn->AddChild(testScn->sn); // TODO: This is broken
 	testScn->GetTransform()->Translate({500,400});
 
 	myGame->GetSceneTree()->SetCurrentScene(nodeShared);
+
+	// Run the main game loop
+	myGame->Run();
 	return 0;
 }

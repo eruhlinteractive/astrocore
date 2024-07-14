@@ -22,7 +22,6 @@ namespace Astrocore
 		Transform2D(Transform2D* other);
 		Transform2D(Matrix transformMat);
 		//~Transform2D();
-
 	
 		// Modifiers
 		void Translate(Vector2 translation);

@@ -1,6 +1,7 @@
 #include "node.h"
 #include <algorithm>
 #include <memory>
+#include "../systems/debug.h"
 using namespace Astrocore;
 
 int Node::NODE_INCREMENTOR = 0;
@@ -13,7 +14,7 @@ Node::Node()
     children = std::vector<Node*>();
 }
 
-Node::Node(std::string name):Node()
+Node::Node(std::string name): Node()
 {
     this->name = name;
 }
@@ -53,7 +54,7 @@ int Node::GetNodeID()
 
 void EnterTree(SceneTree* tree)
 {
-    //tree->RegisterToTree(TreeNode::weak_from_this());
+    
 }
 void Node::AddChild(Node* newChild)
 {
@@ -66,6 +67,13 @@ void Node::AddChild(Node* newChild)
     }
     children.push_back(newChild);
     newChild->SetParent(this);
+
+    // Register the child to the tree
+    if(isInTree && !newChild->isInTree)
+    {
+        std::shared_ptr<Node> n = std::shared_ptr<Node>(newChild);
+        registeredTree->RegisterToTree(n);
+    }
 }
 
 void Node::RemoveChild(Node* childToRemove)
@@ -86,7 +94,7 @@ void Node::SetInheritsParentTransform(bool shouldInheritParentTransform)
 
 void Node::SetParent(Node* newParent)
 {
-    if(parent != nullptr)
+    if(parent != nullptr && parent != newParent)
     {
         parent->RemoveChild(this);
     }
@@ -136,12 +144,20 @@ Transform2D Node::GetWorldTransform()
     
 
     // TODO: Fix the dirty flag here
-    //if(isWorldMatrixDirty)
-    //{
-    worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
-    //isWorldMatrixDirty = false;
-    //}
+    if(isWorldMatrixDirty)
+    {
+    //worldTransform->SetMatrix(MatrixMultiply(transform->GetMatrix(), parent->GetWorldTransform().GetMatrix()));
+        Matrix mat = this->transform->GetMatrix();
+        DBG_LOG(std::to_string(transform->GetRotationDegrees()));
+        this->worldTransform->SetMatrix(mat);
+        //Matrix newMat = this->transform->GetMatrix();
+        DBG_LOG(std::to_string(worldTransform->GetRotationDegrees()));
 
+        //worldTransform->SetMatrix(newMat);
+        isWorldMatrixDirty = false;
+        DBG_LOG("-- Updated world transform");
+    }
 
+    DBG_LOG("Got thing");
     return *worldTransform;
 }

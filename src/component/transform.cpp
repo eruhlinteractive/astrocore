@@ -38,8 +38,8 @@ void Transform2D::SetMatrix(Matrix newMat)
 	Vector3 tempScale = {1,1,1};
 	Transform2D::MatrixDecompose(newMat, &(this->position), &quat, &tempScale);
 
+    this->scale = {tempScale.x, tempScale.y};
 	this->rotation = QuaternionToEuler(quat).z;
-	this->scale = {tempScale.x, tempScale.y};
 }
 
 void Transform2D::Translate(Vector2 translation)
@@ -100,12 +100,17 @@ void Transform2D::SetTransform(Vector2 position, float rotation, Vector2 scale)
 Matrix Transform2D::GetMatrix()
 {
 	Matrix matToReturn = MatrixIdentity();
-	matToReturn = MatrixMultiply(matToReturn, MatrixScale(scale.x, scale.y, 1));
-	matToReturn = MatrixMultiply(matToReturn, MatrixRotateZ(rotation));
-	matToReturn = MatrixMultiply(matToReturn, MatrixTranslate(position.x, position.y, 0));
-	
-	return matToReturn;
+    float rotCopy = rotation;
+    //if(abs(rotCopy) >= PI)
+    //{
+    //    rotCopy = -(rotCopy- PI);
+    //}
 
+    matToReturn = MatrixMultiply(matToReturn, MatrixRotateZ(rotCopy));
+    matToReturn = MatrixMultiply(matToReturn, MatrixScale(scale.x, scale.y, 1));
+	matToReturn = MatrixMultiply(matToReturn, MatrixTranslate(position.x, position.y, 0));
+     
+	return matToReturn;
 }
 
 Vector2 Transform2D::GetPosition()

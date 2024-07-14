@@ -27,7 +27,6 @@ void ShapeNode::Draw()
         {
             for(int i=0; i < shape.points.size() -1; i++ )
             {
-
                 DrawLineEx(Vector2Transform(shape.points[i],transMat), Vector2Transform(shape.points[i+1],transMat), shape.lineWidth, shape.color);
             }
             if(shape.isClosed)
