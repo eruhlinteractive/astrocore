@@ -9,6 +9,13 @@ int main(void)
 {
 
 	Game* myGame = new Game("Space Miner", 1280, 720);
+
+	myGame->GetRenderer()->SetFinalTargetDimensions(420,270);
+	myGame->GetRenderer()->AddRenderTarget("basic", new RenderTarget());
+	RenderTarget* rend = myGame->GetRenderer()->GetRenderTarget("basic");
+	Camera2D* cam = new Camera2D();
+	rend->SetActiveCamera(cam);
+
 	std::shared_ptr<TestScene> testScn = std::shared_ptr<TestScene>(new TestScene());
 	std::shared_ptr<Node> nodeShared = testScn;
 	std::vector<Vector2> pts = std::vector<Vector2>();

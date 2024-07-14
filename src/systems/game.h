@@ -21,6 +21,7 @@ namespace Astrocore
         Game(std::string title, int windowWidth, int windowHeight);
         ~Game();
         static inline SceneTree* GetSceneTree() { return sceneTree.get();};
+        static inline Renderer* GetRenderer() { return renderer.get();};
     };
 }
 #endif // !GAME

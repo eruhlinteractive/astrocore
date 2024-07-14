@@ -24,6 +24,8 @@ namespace Astrocore
         // NOTE: Using weak ptrs here because we don't want to explicitly own the object
         std::weak_ptr<TreeNode> currentScene;
 
+        std::weak_ptr<void> currentCamera;
+
     public:
         SceneTree();
         ~SceneTree(); 
