@@ -17,17 +17,12 @@ void Game::Run()
 {
     while(!WindowShouldClose())
 	{
-        // TODO: Update scene tree, run physics/rendering 
-
         // Update
         sceneTree->GetRoot().lock()->Update(GetFrameTime());
         // Physics Update
-
-
+        // TODO:
         // Render
        renderer->Render(sceneTree->drawnNodesInScene.get());
-
-       DBG_LOG("End Frame");
     }
 
     // Cleanup
