@@ -24,7 +24,7 @@ class TestScene : public Node
     {
         Node::Update(deltaTime);    // Base class call
         GetTransform()->Rotate(deltaTime);
-        sn->GetTransform()->Rotate(-deltaTime);
+        //sn->GetTransform()->Rotate(-deltaTime);
     }
 
     void Draw()

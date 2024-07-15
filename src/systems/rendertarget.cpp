@@ -24,8 +24,9 @@ void RenderTarget::SetScreenDimensions(float posX, float posY, float scale)
 
 void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 {
-    BeginTextureMode(renderTarget);
     BeginMode2D(*renderCamera);
+    BeginTextureMode(renderTarget);
+    ClearBackground(BLANK);
 
     // Do drawing of each node
     for(int i = 0; i < nodesToDraw->size();i++)
@@ -36,18 +37,16 @@ void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDra
             node->Draw();
         }
     }
-    EndMode2D();
+    
     EndTextureMode();
+    EndMode2D();
 }
 
-<<<<<<< HEAD
 void RenderTarget::SetActiveCamera(Camera2D* cam)
 {
     renderCamera = cam;
 }
 
-=======
->>>>>>> 05b9bb25ff425d582a8759aefa8770b315c22ce4
 void RenderTarget::DrawToFinal()
 {
     DrawTextureEx(renderTarget.texture,finalPos,0, finalScale, WHITE);

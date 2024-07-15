@@ -40,9 +40,10 @@ Renderer::~Renderer()
 void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 {
     BeginDrawing();
-
+    ClearBackground(WHITE);
     // Render each of the targets
     std::map<std::string, RenderTarget*>::iterator it;
+    
     for(it = renderTargets.begin(); it != renderTargets.end(); it++)
     {
         it->second->DrawToTarget(nodesToDraw);
@@ -59,6 +60,6 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
     EndTextureMode(); // finalRenderTarget
 
     // Render the final texture to the screen
-    DrawTextureEx(finalRenderTarget.texture,{0,0},0, virtualScreenWidth, WHITE);
+    DrawTextureEx(finalRenderTarget.texture,{0,0}, 0, virtualScreenWidth, WHITE);
     EndDrawing();
 }
