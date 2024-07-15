@@ -13,8 +13,11 @@ int main(void)
 	myGame->GetRenderer()->SetFinalTargetDimensions(420,270);
 	myGame->GetRenderer()->AddRenderTarget("basic", new RenderTarget());
 	RenderTarget* rend = myGame->GetRenderer()->GetRenderTarget("basic");
+<<<<<<< HEAD
 	Camera2D* cam = new Camera2D();
 	rend->SetActiveCamera(cam);
+=======
+>>>>>>> 05b9bb25ff425d582a8759aefa8770b315c22ce4
 
 	std::shared_ptr<TestScene> testScn = std::shared_ptr<TestScene>(new TestScene());
 	std::shared_ptr<Node> nodeShared = testScn;

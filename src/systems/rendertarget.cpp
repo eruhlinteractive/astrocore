@@ -40,11 +40,14 @@ void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDra
     EndTextureMode();
 }
 
+<<<<<<< HEAD
 void RenderTarget::SetActiveCamera(Camera2D* cam)
 {
     renderCamera = cam;
 }
 
+=======
+>>>>>>> 05b9bb25ff425d582a8759aefa8770b315c22ce4
 void RenderTarget::DrawToFinal()
 {
     DrawTextureEx(renderTarget.texture,finalPos,0, finalScale, WHITE);
