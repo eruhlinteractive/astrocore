@@ -27,7 +27,7 @@ int main(void)
 	pts.push_back({0,14});
 	pts.push_back({7,-6});
 
-	testScn->sn = new ShapeNode( (Shape().SetLineThickness(4).FromPoints(pts)) );
+	testScn->sn = new ShapeNode( (Shape().SetLineThickness(4).FromPoints(pts).SetColor(BLUE)) );
 	testScn->sn->GetTransform()->Scale({1,1});
 	testScn->sn->GetTransform()->Translate({100, 0});
 	testScn->sn->SetParent(testScn.get());

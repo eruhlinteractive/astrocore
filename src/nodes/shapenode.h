@@ -86,6 +86,12 @@ struct Shape
         points = newPoints;
         return *this;
     }
+
+    Shape SetColor(Color col)
+    {
+        this->color = col;
+        return *this;
+    }
 };
 }
 
