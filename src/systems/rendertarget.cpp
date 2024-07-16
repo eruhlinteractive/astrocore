@@ -3,8 +3,6 @@ using namespace Astrocore;
 
 RenderTarget::RenderTarget()
 {
-    // Default to the current width/height
-    SetRenderTargetDimensions(GetScreenWidth(), GetScreenHeight());
 }
 
 void RenderTarget::SetRenderTargetDimensions(float width, float height)
@@ -13,6 +11,7 @@ void RenderTarget::SetRenderTargetDimensions(float width, float height)
     {
         UnloadRenderTexture(renderTarget);
     }
+    
     renderTarget = LoadRenderTexture(width, height);
 }
 
@@ -60,5 +59,6 @@ void RenderTarget::DrawToFinal()
 {   
     //Rectangle source = sourceRect;
     //source.height = -sourceRect.height; // Flip y of rendering to texture
-    DrawTexturePro(renderTarget.texture, sourceRect, destRect, {0, GetScreenHeight()/2.0f}, 0, WHITE);
+    DrawTexturePro(renderTarget.texture, sourceRect, destRect, {0, 0}, 0, WHITE);
+    //DrawTexture(renderTarget.texture,0,0,WHITE);
 }

@@ -9,19 +9,16 @@ int main(void)
 {
 
 	Game* myGame = new Game("Space Miner", 1280, 720);
+	//SetWindowState(FLAG_WINDOW_RESIZABLE);
 
-	myGame->GetRenderer()->SetFinalTargetDimensions(1280, 270);
-	myGame->GetRenderer()->AddRenderTarget("basic", new RenderTarget());
-	RenderTarget* rend = myGame->GetRenderer()->GetRenderTarget("basic");
+	myGame->GetRenderer()->SetFinalTargetDimensions(480, 270);
+	
 	Camera2D* cam = new Camera2D();
-	//cam->offset = {-210, 0};
-	//rend->SetRenderTargetDimensions(1280, 720);
-	rend->SetSourceRect({0,0,1280,720});
-	rend->SetDestRect({0,0,1280,720});
+	myGame->GetRenderer()->GetRenderTarget("basic")->SetActiveCamera(cam);
 
-	cam->offset = {1280/2.0, 720/2.0};
+	//cam->target = {0, 0};
+	cam->offset = {480/2.0f, 270/2.0f };
 	cam->zoom = 1.0f;
-	rend->SetActiveCamera(cam);
 
 	std::shared_ptr<TestScene> testScn = std::shared_ptr<TestScene>(new TestScene());
 	std::shared_ptr<Node> nodeShared = testScn;
@@ -37,15 +34,12 @@ int main(void)
 	testScn->sn->GetTransform()->Translate({100, 0});
 	//testScn->sn->SetParent(testScn.get());
 	testScn->AddChild(testScn->sn); // TODO: This is broken
-	//testScn->GetTransform()->Translate({0,0});
 
 	myGame->GetSceneTree()->SetCurrentScene(nodeShared);
 
 	// Run the main game loop
 	myGame->Run();
 
-
-	delete rend;
 	delete cam;
 	return 0;
 }

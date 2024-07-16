@@ -6,17 +6,31 @@ Renderer::Renderer()
 {
     //SetFinalTargetDimensions(GetScreenWidth(), GetScreenHeight());
     renderTargets = std::map<std::string, RenderTarget*>();
+
+    // Create and add basic rendering target
+    basicTarget = new RenderTarget();
+    renderTargets.emplace("basic", basicTarget);
 }
 
 void Renderer::SetFinalTargetDimensions(float width, float height)
 {
-    if(IsRenderTextureReady(finalRenderTarget))
+    if(IsRenderTextureReady(finalRenderTexture))
     {
-        UnloadRenderTexture(finalRenderTarget);
+        UnloadRenderTexture(finalRenderTexture);
     }
 
-    this->finalRenderTarget = LoadRenderTexture(width, height);
+    this->finalRenderTexture = LoadRenderTexture(width, height);
     virtualScreenWidth = GetScreenWidth()/width;
+
+    if(basicTarget != nullptr)
+    {
+        basicTarget->SetRenderTargetDimensions(width, height);
+        basicTarget->SetDestRect({0,0,width, height});
+        basicTarget->SetSourceRect({0,0,width, height});
+    }
+    
+    srcRect = {0,0, width, -height};
+    destRect = {0,0,(float)GetScreenWidth(), (float)GetScreenHeight()};
 }
 
 void Renderer::AddRenderTarget(std::string name, RenderTarget* target)
@@ -31,9 +45,9 @@ RenderTarget* Renderer::GetRenderTarget(std::string name)
 
 Renderer::~Renderer()
 {
-    if(IsRenderTextureReady(finalRenderTarget))
+    if(IsRenderTextureReady(finalRenderTexture))
     {
-        UnloadRenderTexture(finalRenderTarget);
+        UnloadRenderTexture(finalRenderTexture);
     }
 }
 
@@ -43,8 +57,6 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
     
     // Render each of the targets
     std::map<std::string, RenderTarget*>::iterator it;
-    //
-    //ClearBackground(WHITE);
 
     for(it = renderTargets.begin(); it != renderTargets.end(); it++)
     {
@@ -52,7 +64,7 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
     }
 
     // Render each of the targets to the final render texture
-    BeginTextureMode(finalRenderTarget);
+    BeginTextureMode(finalRenderTexture);
     ClearBackground(WHITE);
     for(it = renderTargets.begin(); it != renderTargets.end(); it++)
     {
@@ -61,7 +73,6 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
     EndTextureMode(); // finalRenderTarget
 
     // Render the final texture to the screen
-    DrawTextureEx(finalRenderTarget.texture,{0,0}, 0, 1, WHITE);
-    //DrawRectangle(1280/2, 720/2,10,10,RED);
+    DrawTexturePro(finalRenderTexture.texture, srcRect, destRect, {0,0}, 0, WHITE);
     EndDrawing();
 }
