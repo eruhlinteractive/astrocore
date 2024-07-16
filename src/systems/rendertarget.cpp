@@ -16,16 +16,21 @@ void RenderTarget::SetRenderTargetDimensions(float width, float height)
     renderTarget = LoadRenderTexture(width, height);
 }
 
-void RenderTarget::SetScreenDimensions(float posX, float posY, float scale)
+void RenderTarget::SetSourceRect(Rectangle src)
 {
-    finalPos = {posX, posY};
-    finalScale = scale;
+   sourceRect = src;
+}
+
+void RenderTarget::SetDestRect(Rectangle dest)
+{
+    destRect = dest;
 }
 
 void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 {
-    BeginMode2D(*renderCamera);
+   
     BeginTextureMode(renderTarget);
+    BeginMode2D(*renderCamera);
     ClearBackground(BLANK);
 
     // Do drawing of each node
@@ -38,8 +43,12 @@ void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDra
         }
     }
     
-    EndTextureMode();
+    DrawRectangle(renderCamera->target.x + 10, renderCamera->target.y + 10,10,10,RED);
+    //DrawRectangle(sourceRect.x + sourceRect.width/2.0 + renderCamera->target.x, sourceRect.y + sourceRect.height/2.0 + renderCamera->target.y,100,100,RED);
     EndMode2D();
+    EndTextureMode();
+   
+    //DrawTexture(renderTarget.texture, 0, 0, WHITE);
 }
 
 void RenderTarget::SetActiveCamera(Camera2D* cam)
@@ -48,6 +57,8 @@ void RenderTarget::SetActiveCamera(Camera2D* cam)
 }
 
 void RenderTarget::DrawToFinal()
-{
-    DrawTextureEx(renderTarget.texture,finalPos,0, finalScale, WHITE);
+{   
+    //Rectangle source = sourceRect;
+    //source.height = -sourceRect.height; // Flip y of rendering to texture
+    DrawTexturePro(renderTarget.texture, sourceRect, destRect, {0, GetScreenHeight()/2.0f}, 0, WHITE);
 }

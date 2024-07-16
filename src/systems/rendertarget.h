@@ -17,13 +17,18 @@ namespace Astrocore
         private:
             RenderTexture2D renderTarget;
             Camera2D* renderCamera;
-            Vector2 finalPos = {0,0};
-            float finalScale = 1;
+            Rectangle sourceRect;
+            Rectangle destRect; // TODO: Should this be in screen cordinates
 
         public:
             RenderTarget();
             void SetRenderTargetDimensions(float width, float height);  // Set the resolution of the target texture
-            void SetScreenDimensions(float posX, float posY, float scale);    // Sets the screen-space size and pos of rendered image
+            void SetSourceRect(Rectangle srcRect);    // Sets the screen-space size and pos of rendered image
+            void SetDestRect(Rectangle dest);
+
+            Rectangle GetSourceRect();
+            Rectangle GetDestRect();
+
             void DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw);
             void SetActiveCamera(Camera2D* cam);
             void DrawToFinal();
