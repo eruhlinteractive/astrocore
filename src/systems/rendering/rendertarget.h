@@ -12,13 +12,15 @@
 // Represents a single render target for a camera
 namespace Astrocore
 {
+
     class RenderTarget
     {
+       
         private:
             RenderTexture2D renderTarget;
             Camera2D* renderCamera;
             Rectangle sourceRect;
-            Rectangle destRect; // TODO: Should this be in screen cordinates
+            Rectangle destRect; // TODO: Should this be in screen coordinates
 
         public:
             RenderTarget();

@@ -13,7 +13,9 @@ namespace Astrocore
 {
     class Renderer
     {
+        friend class Game;
         private:
+            Vector2 targetRenderResolution = {0,0};
             RenderTexture2D finalRenderTexture;
             float virtualScreenWidth = 1;   // Scaling factor of the finalRenderTarget to fit in the window
             // TODO: Add render bit flags for layers to use

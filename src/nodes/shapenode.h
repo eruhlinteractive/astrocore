@@ -85,6 +85,7 @@ struct Shape
         return *this;
     }
 
+    // Note: Points should be in COUNTER CLOCKWISE order
     Shape FromPoints(std::vector<Vector2> newPoints)
     {
         this->points.clear();

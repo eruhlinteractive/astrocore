@@ -19,6 +19,8 @@ void Renderer::SetFinalTargetDimensions(float width, float height)
         UnloadRenderTexture(finalRenderTexture);
     }
 
+    targetRenderResolution = {width, height};
+
     this->finalRenderTexture = LoadRenderTexture(width, height);
     virtualScreenWidth = GetScreenWidth()/width;
 
@@ -53,6 +55,12 @@ Renderer::~Renderer()
 
 void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 {
+    // Recalculate the render sizes
+    if(IsWindowResized())
+    {
+        SetFinalTargetDimensions(targetRenderResolution.x,targetRenderResolution.y );
+    }
+
     BeginDrawing();
     
     // Render each of the targets
