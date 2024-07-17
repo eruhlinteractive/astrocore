@@ -9,8 +9,6 @@ int main(void)
 {
 
 	Game* myGame = new Game("Space Miner", 1280, 720);
-	//SetWindowState(FLAG_WINDOW_RESIZABLE);
-
 	myGame->GetRenderer()->SetFinalTargetDimensions(480, 270);
 	
 	Camera2D* cam = new Camera2D();
@@ -23,12 +21,15 @@ int main(void)
 	std::shared_ptr<TestScene> testScn = std::shared_ptr<TestScene>(new TestScene());
 	std::shared_ptr<Node> nodeShared = testScn;
 	std::vector<Vector2> pts = std::vector<Vector2>();
-	pts.push_back({0,3});
-	pts.push_back({-7, -6});
-	pts.push_back({0,14});
 	pts.push_back({7,-6});
+	pts.push_back({0,14});
+	pts.push_back({-7, -6});
+	pts.push_back({0,3});
+	
+	
+	
 
-	testScn->sn = new ShapeNode( (Shape().SetLineThickness(4).FromPoints(pts).SetColor(BLUE)) );
+	testScn->sn = new ShapeNode( Shape().SetLineThickness(4).FromPoints(pts).SetColor(BLUE).SetFilled(true) );
 	//testScn->sn->GetTransform()->Scale({15,15});
 	//testScn->sn->GetTransform()->Translate({cam->target.x, cam->target.y});
 	testScn->sn->GetTransform()->Translate({100, 0});

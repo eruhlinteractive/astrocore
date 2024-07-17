@@ -6,7 +6,7 @@
 #endif // !RAYLIB_H
 
 #include <memory>
-#include "../nodes/node.h"
+#include "../../nodes/node.h"
 #include "rendertarget.h"
 
 namespace Astrocore

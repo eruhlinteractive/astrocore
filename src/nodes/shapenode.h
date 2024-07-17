@@ -74,6 +74,11 @@ struct Shape
         return *this;
     }
 
+    Shape SetFilled(bool isFilled)
+    {
+        this->isFilled = isFilled;
+        return *this;
+    }
     Shape SetLineThickness(float newThick)
     {
         lineWidth = newThick;

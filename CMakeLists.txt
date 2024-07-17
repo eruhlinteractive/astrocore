@@ -7,11 +7,11 @@ src/nodes/node.cpp
 src/systems/debug.h
 src/systems/scenetree.cpp
 src/systems/game.cpp
-src/systems/renderer.cpp
+src/systems/rendering/renderer.cpp
 testscene.cpp
 src/nodes/treenode.h
 src/nodes/shapenode.cpp
-src/systems/rendertarget.cpp)
+src/systems/rendering/rendertarget.cpp)
 
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(raylib_game raylib spdlog::spdlog -lGL -lm -lpthread -ldl -lrt -lX11)

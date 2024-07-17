@@ -1,9 +1,9 @@
 #ifndef RENDERTARGET
 #define RENDERTARGET
 #include <memory>
-#include "../component/transform.h"
+#include "../../component/transform.h"
 #include <vector>
-#include "../nodes/treenode.h"
+#include "../../nodes/treenode.h"
 
 #ifndef RAYLIB_H
 #include <raylib.h>

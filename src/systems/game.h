@@ -2,7 +2,7 @@
 #define GAME
 #include <string>
 #include "scenetree.h"
-#include "renderer.h"
+#include "rendering/renderer.h"
 #include "debug.h"
 
 namespace Astrocore
