@@ -1,6 +1,4 @@
-A game creation framework based on the Raylib library
-
-** CAUTION: THIS FRAMEWORK IS CURRENTLY IN PRE-ALPHA AND IS NOWHERE NEAR FEATURE COMPLETE. USE AT YOUR OWN RISK **
+**CAUTION: THIS FRAMEWORK IS CURRENTLY IN PRE-ALPHA AND IS NOWHERE NEAR FEATURE COMPLETE. USE AT YOUR OWN RISK**
 
 # Description
 Astrocore is a set of general-purpose game systems designed to increase the speed of 'spartan' game development. The features are intended to add another level of functionality above popular game libraries like [XNA/Monogame](https://monogame.net/) and [Raylib](https://www.raylib.com/), without implmenting a full GUI application or build pipeline. 
