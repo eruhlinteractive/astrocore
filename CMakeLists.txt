@@ -11,7 +11,8 @@ src/systems/rendering/renderer.cpp
 testscene.cpp
 src/nodes/treenode.h
 src/nodes/shapenode.cpp
-src/systems/rendering/rendertarget.cpp)
+src/systems/rendering/rendertarget.cpp
+src/systems/input/input.cpp)
 
 find_package(spdlog CONFIG REQUIRED)
 target_link_libraries(raylib_game raylib spdlog::spdlog -lGL -lm -lpthread -ldl -lrt -lX11)

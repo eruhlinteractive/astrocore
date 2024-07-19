@@ -131,6 +131,7 @@ Transform2D* Node::GetTransform()
         child->SetIsWorldMatrixDirty(true);
     }
 
+    isWorldMatrixDirty = true;
     return transform.get();
 }
 
