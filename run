@@ -1,1 +1,1 @@
-make && ./raylib_game
+make build/ && ./build/raylib_game

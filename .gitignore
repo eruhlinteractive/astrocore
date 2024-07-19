@@ -13,3 +13,4 @@ out
 CMakePresets.json
 .vscode
 raylib_game
+build
