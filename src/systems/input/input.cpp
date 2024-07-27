@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../../../include/astrocore/systems/input/input.h"
 
 using namespace Astrocore;
 

@@ -1,7 +1,7 @@
-#include "node.h"
+#include "../../include/astrocore/nodes/node.h"
 #include <algorithm>
 #include <memory>
-#include "../systems/debug.h"
+#include "../../include/astrocore/systems/debug.h"
 using namespace Astrocore;
 
 int Node::NODE_INCREMENTOR = 0;

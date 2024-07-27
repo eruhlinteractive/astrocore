@@ -1,5 +1,5 @@
-#ifndef INPUT
-#define INPUT
+#ifndef INPUT_H
+#define INPUT_H
 
 #include <raylib.h>
 #include <map>
@@ -29,6 +29,7 @@ namespace Astrocore
         int id;
         int deviceID = 0; // Only used for joypad inpus
     };
+    
     class Input
     {
         private:

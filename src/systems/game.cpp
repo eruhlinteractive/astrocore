@@ -1,4 +1,4 @@
-#include "game.h"
+#include "../../include/astrocore/systems/game.h"
 using namespace Astrocore;
 
 Game::Game(std::string title)

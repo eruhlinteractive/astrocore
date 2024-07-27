@@ -1,4 +1,4 @@
-#include "scenetree.h"
+#include "../../include/astrocore/systems/scenetree.h"
 using namespace Astrocore;
 
 SceneTree::SceneTree()

@@ -1,5 +1,5 @@
-#ifndef SHAPENODE
-#define SHAPENODE
+#ifndef SHAPENODE_H
+#define SHAPENODE_H
 
 #include <vector>
 

@@ -1,9 +1,9 @@
-#ifndef NODE
-#define NODE
+#ifndef NODE_H
+#define NODE_H
 
 #include <vector>
 #include <memory>
-#include "../component/transform.h"
+#include "../component/transform2D.h"
 #include <string>
 #include "../systems/scenetree.h"
 #include "treenode.h"

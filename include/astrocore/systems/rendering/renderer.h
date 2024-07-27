@@ -1,5 +1,5 @@
-#ifndef RENDERER
-#define RENDERER
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #ifndef RAYLIB_H
 #include <raylib.h>
@@ -23,10 +23,12 @@ namespace Astrocore
             Rectangle srcRect;
             Rectangle destRect;
             RenderTarget* basicTarget;
+            Color clearColor = WHITE;
 
         public:
             Renderer();
             ~Renderer();
+            void SetClearColor(Color newColor);
             void SetFinalTargetDimensions(float width, float height);
 
             void AddRenderTarget(std::string name, RenderTarget* target);
@@ -36,6 +38,7 @@ namespace Astrocore
         // TODO: Add layer sorting, etc
             void Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw);
     };
+
 }
 
 #endif // !RENDERER

@@ -1,5 +1,5 @@
-#ifndef SIGNALER
-#define SIGNALER
+#ifndef SIGNALER_H
+#define SIGNALER_H
 #include <string>
 #include <map>
 #include <vector>

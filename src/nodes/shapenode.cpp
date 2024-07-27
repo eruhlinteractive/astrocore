@@ -1,4 +1,4 @@
-#include "shapenode.h"
+#include "../../include/astrocore/nodes/shapenode.h"
 
 using namespace Astrocore;
 

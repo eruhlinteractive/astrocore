@@ -1,4 +1,4 @@
-#include "transform.h"
+#include "../../include/astrocore/component/transform2D.h"
 
 using namespace Astrocore;
 

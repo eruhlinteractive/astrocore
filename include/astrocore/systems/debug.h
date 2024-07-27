@@ -1,5 +1,5 @@
-#ifndef DEBUG
-#define DEBUG
+#ifndef DEBUG_H
+#define DEBUG_H
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>

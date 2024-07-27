@@ -1,5 +1,5 @@
-#ifndef SCENETREE
-#define SCENETREE
+#ifndef SCENETREE_H
+#define SCENETREE_H
 
 #include <vector>
 #include <memory>

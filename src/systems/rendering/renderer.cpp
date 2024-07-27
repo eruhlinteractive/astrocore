@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "../../../include/astrocore/systems/rendering/renderer.h"
 
 using namespace Astrocore;
 
@@ -7,9 +7,14 @@ Renderer::Renderer()
     //SetFinalTargetDimensions(GetScreenWidth(), GetScreenHeight());
     renderTargets = std::map<std::string, RenderTarget*>();
 
-    // Create and add basic rendering target
+    // Create and add basic rendering target with a cam
     basicTarget = new RenderTarget();
     renderTargets.emplace("basic", basicTarget);
+
+    // TODO: Create a camera for the render target if none exists
+    //Camera2D cam = Camera2D();
+    //cam.zoom = 1.0f;
+    //basicTarget->SetActiveCamera(&cam);
 }
 
 void Renderer::SetFinalTargetDimensions(float width, float height)
@@ -53,6 +58,12 @@ Renderer::~Renderer()
     }
 }
 
+void Renderer::SetClearColor(Color newColor)
+{
+    clearColor = newColor;        
+}
+    
+
 void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 {
     // Recalculate the render sizes
@@ -73,7 +84,7 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 
     // Render each of the targets to the final render texture
     BeginTextureMode(finalRenderTexture);
-    ClearBackground(WHITE);
+    ClearBackground(clearColor);
     for(it = renderTargets.begin(); it != renderTargets.end(); it++)
     {
         it->second->DrawToFinal();

@@ -1,4 +1,4 @@
-#include "rendertarget.h"
+#include "../../../include/astrocore/systems/rendering/rendertarget.h"
 using namespace Astrocore;
 
 RenderTarget::RenderTarget()
@@ -23,6 +23,20 @@ void RenderTarget::SetSourceRect(Rectangle src)
 void RenderTarget::SetDestRect(Rectangle dest)
 {
     destRect = dest;
+}
+
+Camera2D* RenderTarget::GetActiveCamera()
+{
+    return renderCamera;
+}
+Rectangle RenderTarget::GetDestRect()
+{
+    return destRect;
+}
+
+Rectangle RenderTarget::GetSourceRect()
+{
+    return sourceRect;
 }
 
 void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)

@@ -1,7 +1,7 @@
-#ifndef RENDERTARGET
-#define RENDERTARGET
+#ifndef RENDERTARGET_H
+#define RENDERTARGET_H
 #include <memory>
-#include "../../component/transform.h"
+#include "../../component/transform2D.h"
 #include <vector>
 #include "../../nodes/treenode.h"
 
@@ -28,11 +28,15 @@ namespace Astrocore
             void SetSourceRect(Rectangle srcRect);    // Sets the screen-space size and pos of rendered image
             void SetDestRect(Rectangle dest);
 
+
             Rectangle GetSourceRect();
             Rectangle GetDestRect();
 
+           
             void DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw);
             void SetActiveCamera(Camera2D* cam);
+            Camera2D* GetActiveCamera();
+
             void DrawToFinal();
     };
 }

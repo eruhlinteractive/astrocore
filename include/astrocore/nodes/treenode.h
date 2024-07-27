@@ -1,5 +1,5 @@
-#ifndef TREENODE
-#define TREENODE
+#ifndef TREENODE_H
+#define TREENODE_H
 #include "../component/signaler.h"
 
 namespace Astrocore

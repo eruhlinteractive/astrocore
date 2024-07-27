@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 3.22.1)
-project(CGame)
+include(GenerateExportHeader)
+project(Astrocore)
 
-add_executable(raylib_game main.cpp 
+add_library(astrocore STATIC
 src/component/transform.cpp
 src/nodes/node.cpp
-src/systems/debug.h
 src/systems/scenetree.cpp
 src/systems/game.cpp
 src/systems/rendering/renderer.cpp
-testscene.cpp
-src/nodes/treenode.h
 src/nodes/shapenode.cpp
 src/systems/rendering/rendertarget.cpp
 src/systems/input/input.cpp)
 
 find_package(spdlog CONFIG REQUIRED)
-target_link_libraries(raylib_game raylib spdlog::spdlog -lGL -lm -lpthread -ldl -lrt -lX11)
+# Libraries need linked here for building, but ALSO need to be linked in any other project using astrocore
+target_link_libraries(astrocore raylib spdlog::spdlog -lGL -lm -lpthread -ldl -lrt -lX11)
