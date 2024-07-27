@@ -56,8 +56,8 @@ void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDra
         }
     }
     
-    DrawRectangle(renderCamera->target.x + 10, renderCamera->target.y + 10,10,10,RED);
-    //DrawRectangle(sourceRect.x + sourceRect.width/2.0 + renderCamera->target.x, sourceRect.y + sourceRect.height/2.0 + renderCamera->target.y,100,100,RED);
+   //DrawRectangle(renderCamera->target.x + 10, renderCamera->target.y + 10,10,10,RED);
+ //DrawRectangle(sourceRect.x + sourceRect.width/2.0 + renderCamera->target.x, sourceRect.y + sourceRect.height/2.0 + renderCamera->target.y,100,100,RED);
     EndMode2D();
     EndTextureMode();
    
