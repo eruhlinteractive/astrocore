@@ -1,17 +1,10 @@
 #include "../../include/astrocore/systems/game.h"
 using namespace Astrocore;
 
-Game::Game(std::string title)
-{   
-    Debug::init();
-    // Initialize window
-    InitWindow(1280, 720, title.c_str());
-    renderer->SetFinalTargetDimensions(1280,720);
-}
-
-Game::Game(std::string title, int windowWidth, int windowHeight) : Game(title)
+Game::Game(std::string title, int windowWidth, int windowHeight)
 {
-    SetWindowSize(windowWidth, windowHeight);
+    Debug::init();
+    InitWindow(windowWidth, windowHeight, title.c_str());
     renderer->SetFinalTargetDimensions(windowWidth, windowHeight);
 }
 

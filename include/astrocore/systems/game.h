@@ -17,7 +17,6 @@ namespace Astrocore
         
     public:
         void Run(); // The main game loop
-        Game(std::string title); // Launch with default res of 1280/720
         Game(std::string title, int windowWidth, int windowHeight);
         ~Game();
         static inline SceneTree* GetSceneTree() { return sceneTree.get();};
