@@ -14,7 +14,7 @@ Renderer::Renderer()
 
 void Renderer::SetFinalTargetDimensions(float width, float height)
 {
-    if(IsRenderTextureReady(finalRenderTexture))
+    if(IsRenderTextureValid(finalRenderTexture))
     {
         UnloadRenderTexture(finalRenderTexture);
     }
@@ -47,7 +47,7 @@ RenderTarget* Renderer::GetRenderTarget(std::string name)
 
 Renderer::~Renderer()
 {
-    if(IsRenderTextureReady(finalRenderTexture))
+    if(IsRenderTextureValid(finalRenderTexture))
     {
         UnloadRenderTexture(finalRenderTexture);
     }

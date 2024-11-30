@@ -8,7 +8,7 @@ RenderTarget::RenderTarget(std::string name)
 
 void RenderTarget::SetRenderTargetDimensions(float width, float height)
 {
-    if(IsRenderTextureReady(renderTarget))
+    if(IsRenderTextureValid(renderTarget))
     {
         UnloadRenderTexture(renderTarget);
     }
