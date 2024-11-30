@@ -17,6 +17,8 @@ Upcoming features include:
 
 # Usage
 1. Download, build and install Raylib as a static library as described [here](https://github.com/raysan5/raylib?tab=readme-ov-file#build-and-installation)
+    - **Note**: This project is currently targeting Raylib v5.5
 2. Install vcpkg/cmake as described [here](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-cmd)
-3. Run make to build the library, or include the source directly in your project
+3. Run make to build the library, or include the source (plus the dynamic library) directly in your project
+    - **Note**: You will still need to target Raylib (and any dependencies of the vpkg.json) in the linked libraries of your final executable!
 4. *Profit(?)*
