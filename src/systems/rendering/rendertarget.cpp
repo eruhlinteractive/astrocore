@@ -1,8 +1,9 @@
 #include "../../../include/astrocore/systems/rendering/rendertarget.h"
 using namespace Astrocore;
 
-RenderTarget::RenderTarget()
+RenderTarget::RenderTarget(std::string name)
 {
+    this->name = name;
 }
 
 void RenderTarget::SetRenderTargetDimensions(float width, float height)
@@ -11,7 +12,7 @@ void RenderTarget::SetRenderTargetDimensions(float width, float height)
     {
         UnloadRenderTexture(renderTarget);
     }
-    
+    // TODO: This should update the destination rect
     renderTarget = LoadRenderTexture(width, height);
 }
 
@@ -25,7 +26,7 @@ void RenderTarget::SetDestRect(Rectangle dest)
     destRect = dest;
 }
 
-Camera2D* RenderTarget::GetActiveCamera()
+std::shared_ptr<Camera2D> RenderTarget::GetActiveCamera()
 {
     return renderCamera;
 }
@@ -41,6 +42,13 @@ Rectangle RenderTarget::GetSourceRect()
 
 void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
 {
+    if(renderCamera == nullptr)
+    {
+        DBG_WARN("No active camera was found for render target " + this->name + ". Creating a default one...");
+        renderCamera = std::shared_ptr<Camera2D>(new Camera2D());
+        renderCamera.get()->offset = {destRect.width/2.0f, destRect.height/2.0f};
+        renderCamera.get()->zoom = 1.0f;
+    }
    
     BeginTextureMode(renderTarget);
     BeginMode2D(*renderCamera);
@@ -56,23 +64,16 @@ void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDra
         }
     }
     
-   //DrawRectangle(renderCamera->target.x + 10, renderCamera->target.y + 10,10,10,RED);
- //DrawRectangle(sourceRect.x + sourceRect.width/2.0 + renderCamera->target.x, sourceRect.y + sourceRect.height/2.0 + renderCamera->target.y,100,100,RED);
     EndMode2D();
     EndTextureMode();
-   
-    //DrawTexture(renderTarget.texture, 0, 0, WHITE);
 }
 
-void RenderTarget::SetActiveCamera(Camera2D* cam)
+void RenderTarget::SetActiveCamera(std::shared_ptr<Camera2D> cam)
 {
     renderCamera = cam;
 }
 
 void RenderTarget::DrawToFinal()
 {   
-    //Rectangle source = sourceRect;
-    //source.height = -sourceRect.height; // Flip y of rendering to texture
     DrawTexturePro(renderTarget.texture, sourceRect, destRect, {0, 0}, 0, WHITE);
-    //DrawTexture(renderTarget.texture,0,0,WHITE);
 }
