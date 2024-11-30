@@ -14,3 +14,4 @@ CMakePresets.json
 .vscode
 raylib_game
 build
+vcpkg_installed

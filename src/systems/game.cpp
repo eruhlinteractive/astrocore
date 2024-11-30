@@ -21,9 +21,7 @@ void Game::Run()
 	{
         // Update
         sceneTree->GetRoot().lock()->Update(GetFrameTime());
-        // Physics Update
-        // TODO:
-        // Render
+        // TODO: Physics Update
        renderer->Render(sceneTree->drawnNodesInScene.get());
     }
 
