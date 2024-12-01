@@ -11,7 +11,8 @@ src/systems/rendering/renderer.cpp
 src/nodes/shapenode.cpp
 src/systems/rendering/rendertarget.cpp
 src/systems/input/input.cpp
-src/systems/resources/resourcemanager.cpp)
+src/systems/resources/resourcemanager.cpp
+src/nodes/spritenode.cpp)
 
 find_package(spdlog CONFIG REQUIRED)
 # Libraries need linked here for building, but ALSO need to be linked in any other project using astrocore
