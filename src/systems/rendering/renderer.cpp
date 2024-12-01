@@ -31,7 +31,7 @@ void Renderer::SetFinalTargetDimensions(float width, float height)
         basicTarget->SetSourceRect({0,0,width, height});
     }
     
-    srcRect = {0,0, width, -height};
+    srcRect = {0,0, width, height};
     destRect = {0,0,(float)GetScreenWidth(), (float)GetScreenHeight()};
 }
 
