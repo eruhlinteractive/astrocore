@@ -49,13 +49,23 @@ void Renderer::UpdateRenderRects(float screenWidth, float screenHeight, RenderSc
             return;
         }
 
-        case SCALE_KEEP_ASPECT:
+        case SCALE_KEEP_ASPECT_FIT:
+        case SCALE_KEEP_ASPECT_FILL:
         {
             // Determine which dimension needs to be scaled and re-call accordingly
             float heightFillPercent = (float)GetScreenHeight()/ targetRenderResolution.y;
             float widthFillPercent = (float)GetScreenWidth()/ targetRenderResolution.x;
 
-            RenderScaleFlag flagToUse = heightFillPercent >= widthFillPercent ? SCALE_FIT_WIDTH : SCALE_FIT_HEIGHT;
+            RenderScaleFlag flagToUse;
+            if(scaleMode == SCALE_KEEP_ASPECT_FIT)
+            {
+                flagToUse = heightFillPercent >= widthFillPercent ? SCALE_FIT_WIDTH : SCALE_FIT_HEIGHT;
+            }
+            else
+            {
+                flagToUse = heightFillPercent >= widthFillPercent ? SCALE_FIT_HEIGHT: SCALE_FIT_WIDTH;
+            }
+            
             this->UpdateRenderRects((float)GetScreenWidth(), (float)GetScreenHeight(), flagToUse);
             return;
         }
@@ -130,7 +140,7 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
     }
 
     BeginDrawing();
-    ClearBackground(RED);
+    ClearBackground(clearColor);
     // Render each of the targets
     std::map<std::string, RenderTarget*>::iterator it;
 

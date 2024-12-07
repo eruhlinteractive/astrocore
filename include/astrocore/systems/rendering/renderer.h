@@ -18,7 +18,8 @@ namespace Astrocore
         SCALE_STRETCH_FILL, // Stretches the image to fill both axies
         SCALE_FIT_WIDTH, // Fit the width
         SCALE_FIT_HEIGHT,// Fit the height
-        SCALE_KEEP_ASPECT // Scale to fit the smallest dimension, keeping the aspect
+        SCALE_KEEP_ASPECT_FIT, // Scale to fit the smallest dimension, keeping the aspect (may introduce letterboxing)
+        SCALE_KEEP_ASPECT_FILL // Scale to fit the smallest dimension, making sure to fill the screen
     };
 
     class Renderer
