@@ -36,7 +36,7 @@ namespace Astrocore
             RenderTarget* basicTarget;
             Color clearColor = WHITE;
             RenderScaleFlag scaleRenderFlag = SCALE_STRETCH_FILL;
-            void UpdateRenderRects(float screenWidth, float screenHeight);
+            void UpdateRenderRects(float screenWidth, float screenHeight, RenderScaleFlag scaleMode);
 
         public:
             Renderer();

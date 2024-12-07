@@ -24,6 +24,7 @@ std::shared_ptr<Texture2D> ResourceManager::GetTextureResource(std::string relat
     // Invalid file
     if(!(FileExists(fullPath) && IsPathFile(fullPath)) )
     {
+        Debug::LogError("Unable to find the file at path " + relativePath);
         return nullptr;
     }
 

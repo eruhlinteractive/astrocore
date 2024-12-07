@@ -5,6 +5,7 @@
 #include <raylib.h>
 #include <memory>
 #include <map>
+#include "../debug.h"
 
 namespace Astrocore
 {

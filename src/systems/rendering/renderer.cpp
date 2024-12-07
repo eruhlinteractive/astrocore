@@ -13,33 +13,56 @@ Renderer::Renderer()
 }
 
 
-void Renderer::UpdateRenderRects(float screenWidth, float screenHeight)
+void Renderer::UpdateRenderRects(float screenWidth, float screenHeight, RenderScaleFlag scaleMode)
 {
     float centerRenderOffsetX = 0;
     float centerRenderOffsetY = 0;
-    switch (scaleRenderFlag)
+    switch (scaleMode)
     {
         case SCALE_STRETCH_FILL:
         {
             srcRect = {0, 0, targetRenderResolution.x, targetRenderResolution.y};
-            break;
+            destRect = {0, 0, (float)GetScreenWidth(), (float)GetScreenHeight()};
+            return;
         }
            
         case SCALE_FIT_WIDTH:
         {
-            float aspectRatio = targetRenderResolution.x / targetRenderResolution.y;
-            float widthFillPercent = targetRenderResolution.x /(float)GetScreenWidth();
-            float newHeight = (float)targetRenderResolution.y * (widthFillPercent * aspectRatio);
+            float widthFillPercent = (float)GetScreenWidth()/ targetRenderResolution.x;
+            float newHeight = (float)targetRenderResolution.y * (widthFillPercent);
            
-            centerRenderOffsetY = (-newHeight/2.0);
-            //centerRenderOffsetY = -screenWidthDiff;
-            srcRect = {0, 0, targetRenderResolution.x, newHeight};
-            break;
+            // Calculate offset to keep the rendered view centered
+            centerRenderOffsetY = ((float)GetScreenHeight()-newHeight)/2.0;
+            srcRect = {0, 0, targetRenderResolution.x, targetRenderResolution.y};
+            destRect = {0, centerRenderOffsetY, (float)GetScreenWidth(), newHeight};
+            return;
+        }
+        case SCALE_FIT_HEIGHT:
+        {
+            float heightFillPercent = (float)GetScreenHeight()/ targetRenderResolution.y;
+            float newWidth = (float)targetRenderResolution.x * (heightFillPercent);
+           
+            // Calculate offset to keep the rendered view centered
+            centerRenderOffsetX = ((float)GetScreenWidth()-newWidth)/2.0;
+            srcRect = {0, 0, targetRenderResolution.x, targetRenderResolution.y};
+            destRect = {centerRenderOffsetX, 0, newWidth, (float)GetScreenHeight()};
+            return;
+        }
+
+        case SCALE_KEEP_ASPECT:
+        {
+            // Determine which dimension needs to be scaled and re-call accordingly
+            float heightFillPercent = (float)GetScreenHeight()/ targetRenderResolution.y;
+            float widthFillPercent = (float)GetScreenWidth()/ targetRenderResolution.x;
+
+            RenderScaleFlag flagToUse = heightFillPercent >= widthFillPercent ? SCALE_FIT_WIDTH : SCALE_FIT_HEIGHT;
+            this->UpdateRenderRects((float)GetScreenWidth(), (float)GetScreenHeight(), flagToUse);
+            return;
         }
     }
-
-    destRect = {centerRenderOffsetX, centerRenderOffsetY, (float)GetScreenWidth(), (float)GetScreenHeight()};
 }
+
+   
 
 void Renderer::SetFinalTargetDimensions(float width, float height)
 {
@@ -54,7 +77,7 @@ void Renderer::SetFinalTargetDimensions(float width, float height)
     targetRenderResolution = {width, height};
 
     this->finalRenderTexture = LoadRenderTexture(width, height);
-    SetTextureWrap(finalRenderTexture.texture, TEXTURE_WRAP_CLAMP);
+    SetTextureWrap(finalRenderTexture.texture, TEXTURE_WRAP_MIRROR_CLAMP);
 
 
     if(basicTarget != nullptr)
@@ -64,7 +87,7 @@ void Renderer::SetFinalTargetDimensions(float width, float height)
         basicTarget->SetSourceRect({0,0,width, height});
     }
 
-    UpdateRenderRects(GetScreenWidth(), GetScreenHeight());
+    UpdateRenderRects(GetScreenWidth(), GetScreenHeight(), scaleRenderFlag);
     
 }
 
@@ -103,7 +126,7 @@ void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
     // Recalculate the render sizes
     if(IsWindowResized())
     {
-        UpdateRenderRects(GetScreenWidth(), GetScreenHeight());
+        UpdateRenderRects(GetScreenWidth(), GetScreenHeight(), scaleRenderFlag);
     }
 
     BeginDrawing();
