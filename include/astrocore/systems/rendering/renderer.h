@@ -8,22 +8,35 @@
 #include <memory>
 #include "../../nodes/node.h"
 #include "rendertarget.h"
+#include <bitset>
 
 namespace Astrocore
 {
+    /// Flags to determine how the render target should fit the bounds of the screen
+    enum RenderScaleFlag
+    {
+        SCALE_STRETCH_FILL, // Stretches the image to fill both axies
+        SCALE_FIT_WIDTH, // Fit the width
+        SCALE_FIT_HEIGHT,// Fit the height
+        SCALE_KEEP_ASPECT // Scale to fit the smallest dimension, keeping the aspect
+    };
+
     class Renderer
     {
+        
         friend class Game;
         private:
             Vector2 targetRenderResolution = {0,0};
             RenderTexture2D finalRenderTexture;
-            float virtualScreenWidth = 1;   // Scaling factor of the finalRenderTarget to fit in the window
+            //float virtualScreenWidth = 1;   // Scaling factor of the finalRenderTarget to fit in the window
             // TODO: Add render bit flags for layers to use
             std::map<std::string, RenderTarget*> renderTargets;
             Rectangle srcRect;
             Rectangle destRect;
             RenderTarget* basicTarget;
             Color clearColor = WHITE;
+            RenderScaleFlag scaleRenderFlag = SCALE_STRETCH_FILL;
+            void UpdateRenderRects(float screenWidth, float screenHeight);
 
         public:
             Renderer();
@@ -33,6 +46,8 @@ namespace Astrocore
 
             void AddRenderTarget(std::string name, RenderTarget* target);
             RenderTarget* GetRenderTarget(std::string name);
+            void SetRenderStretchMode(RenderScaleFlag modeFlag);
+            
 
         // Basic renderer
         // TODO: Add layer sorting, etc

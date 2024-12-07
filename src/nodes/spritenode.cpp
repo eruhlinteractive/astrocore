@@ -3,7 +3,6 @@
 
 using namespace Astrocore;
 
-
 SpriteNode::SpriteNode() : Node()
 {
     isDrawn = true;
@@ -37,5 +36,5 @@ void SpriteNode::Draw()
 {
     Transform2D transform = GetTransform();
     Vector2 transformedOffset = Vector2Transform(spriteCenterOffset, transform.GetMatrix());
-    DrawTextureEx(*spriteTexture.get(), transform.GetPosition() + transformedOffset, transform.GetRotationDegrees(), 1.0f, WHITE );
+    DrawTextureEx(*spriteTexture.get(), transform.GetPosition() + transformedOffset, transform.GetRotationDegrees(), Vector2Length(transform.GetScale()), WHITE );
 }

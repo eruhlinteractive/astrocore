@@ -2,6 +2,7 @@
 #define __SPRITENODE_H__
 
 #include "node.h"
+#include <raymath.h>
 
 namespace Astrocore
 {
