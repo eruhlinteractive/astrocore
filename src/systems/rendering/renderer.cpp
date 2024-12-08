@@ -117,6 +117,11 @@ Renderer::~Renderer()
     {
         UnloadRenderTexture(finalRenderTexture);
     }
+    if(basicTarget != nullptr)
+    {
+        delete basicTarget;
+        basicTarget = nullptr;
+    }
 }
 
 void Renderer::SetClearColor(Color newColor)

@@ -20,12 +20,13 @@ void Game::Run()
 
 
     renderer.reset();
+    renderer = nullptr;
     // Cleanup
     CloseWindow();
-   
 }
 
 Game::~Game()
 {
-    sceneTree.release();
+    sceneTree.reset();
+    sceneTree = nullptr;
 }
