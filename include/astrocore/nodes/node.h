@@ -25,7 +25,6 @@ namespace Astrocore
         Node* parent = nullptr;
         std::unique_ptr<Transform2D> transform;
         std::unique_ptr<Transform2D> worldTransform;
-        bool isInTree = false;
         //SceneTree* registeredTree = nullptr; // TODO: Make this a pointer to the scene tree
 
     public:
@@ -34,9 +33,10 @@ namespace Astrocore
         Node(std::string name);
         ~Node();
 
-        void OnTreeEnter();
-        void OnTreeExit();
-        //virtual void EnterTree(SceneTree* tree);
+        virtual void OnTreeEnter(){};
+        virtual void OnTreeExit(){};
+        void EnterTree(SceneTree* tree) override final;
+        void ExitTree() override final;
         //virtual void ExitTree();
         int GetNodeID();
         // Heirarchy access
@@ -51,6 +51,8 @@ namespace Astrocore
         void SetInheritsParentTransform(bool shouldInheritParentTransform);
         inline void SetIsWorldMatrixDirty(bool isWorldMatrixDirty){ this->isWorldMatrixDirty = isWorldMatrixDirty; }
 
+        
+        virtual void Draw(){};
         void Update(float deltaTime) override;
         //void FixedUpdate(float deltaTime) override; // TODO:
         // Transform manipulation

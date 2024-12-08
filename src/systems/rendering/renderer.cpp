@@ -131,7 +131,7 @@ void Renderer::SetRenderStretchMode(RenderScaleFlag modeFlag)
 }
 
 
-void Renderer::Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
+void Renderer::Render(std::vector<TreeNode*>* nodesToDraw)
 {
     // Recalculate the render sizes
     if(IsWindowResized())

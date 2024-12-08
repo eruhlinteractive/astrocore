@@ -18,12 +18,20 @@ namespace Astrocore
     
     public:
         TreeNode(){};
-        virtual void EnterTree(SceneTree* tree){};
-        virtual void ExitTree(){};
+        virtual void EnterTree(SceneTree* tree)
+        {
+            this->isInTree = true; 
+            this->registeredTree = tree;
+        };
+        virtual void ExitTree()
+        {
+            isInTree = false;
+        };
 
         virtual void Draw(){};
         void GetZIndex();
         bool IsDrawn() {return isDrawn;};
+        bool IsInTree(){return isInTree;};
 
         virtual void Update(float deltaTime){};
         virtual void FixedUpdate(float deltaTime){};

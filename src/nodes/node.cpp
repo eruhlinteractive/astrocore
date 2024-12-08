@@ -19,19 +19,26 @@ Node::Node(std::string name): Node()
     this->name = name;
 }
 
+void Node::ExitTree()
+{
+    TreeNode::ExitTree();
+    registeredTree->DeRegisterToTree(this);
+    for(Node* child : children)
+    {
+        child->ExitTree();
+    }
+    OnTreeExit();
+}
+
 Node::~Node()
 {
-    //if(isInTree)
-    //{
-    //    // TODO: De-register from tree (which will call OnTreeExit)
-    //}
-
     if(parent != nullptr)
     {
         // Remove ourselves from the child
         parent->RemoveChild(this);
     }
-   
+    ExitTree();
+
     // Delete children
     for(Node* child : children)
     {
@@ -52,10 +59,12 @@ int Node::GetNodeID()
     return nodeID;
 }
 
-void EnterTree(SceneTree* tree)
+void Node::EnterTree(SceneTree* tree)
 {
-    
+    TreeNode::EnterTree(tree);
+    OnTreeEnter();
 }
+
 void Node::AddChild(Node* newChild)
 {
     std::vector<Node*>::iterator it = std::find(children.begin(), children.end(), newChild);
@@ -69,10 +78,9 @@ void Node::AddChild(Node* newChild)
     newChild->SetParent(this);
 
     // Register the child to the tree
-    if(isInTree && !newChild->isInTree)
+    if(this->IsInTree() && !newChild->IsInTree())
     {
-        std::shared_ptr<Node> n = std::shared_ptr<Node>(newChild);
-        registeredTree->RegisterToTree(n);
+        registeredTree->RegisterToTree(newChild);
     }
 }
 
@@ -121,6 +129,7 @@ void Node::Update(float deltaTime)
     {
         child->Update(deltaTime);
     }
+
 }
 
 Transform2D* Node::GetTransform()
@@ -134,6 +143,8 @@ Transform2D* Node::GetTransform()
     isWorldMatrixDirty = true;
     return transform.get();
 }
+
+
 
 Transform2D Node::GetWorldTransform()
 {

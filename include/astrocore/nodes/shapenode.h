@@ -53,10 +53,10 @@ struct Shape
     Shape AsRect(float height, float width)
     {
         points.clear();
-        points.push_back({height, width});
-        points.push_back({-height, width});
-        points.push_back({-height, -width});
-        points.push_back({height, -width});
+        points.push_back({height/2.0f, width/2.0f});
+        points.push_back({-height/2.0f, width/2.0f});
+        points.push_back({-height/2.0f, -width/2.0f});
+        points.push_back({height/2.0f, -width/2.0f});
         return *this;
     }
 

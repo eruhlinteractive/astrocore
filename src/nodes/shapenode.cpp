@@ -5,6 +5,7 @@ using namespace Astrocore;
 ShapeNode::ShapeNode()
 {
     shapesToDraw = std::vector<Shape>();
+    isDrawn = true;
 }
 
 ShapeNode::ShapeNode(Shape initialShape) : ShapeNode()

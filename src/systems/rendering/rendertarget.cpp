@@ -40,7 +40,7 @@ Rectangle RenderTarget::GetSourceRect()
     return sourceRect;
 }
 
-void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw)
+void RenderTarget::DrawToTarget(std::vector<TreeNode*>* nodesToDraw)
 {
     if(renderCamera == nullptr)
     {
@@ -57,7 +57,7 @@ void RenderTarget::DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDra
     // Do drawing of each node
     for(int i = 0; i < nodesToDraw->size();i++)
     {
-        std::shared_ptr<TreeNode> node = nodesToDraw->at(i).lock();
+        TreeNode* node = nodesToDraw->at(i);
         if(node->IsDrawn())
         {
             node->Draw();

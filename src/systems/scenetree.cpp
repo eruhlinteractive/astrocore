@@ -12,24 +12,24 @@ SceneTree::~SceneTree()
     treeRoot.reset();
 }
 
-std::weak_ptr<TreeNode> SceneTree::GetRoot()
+TreeNode* SceneTree::GetRoot()
 {
     return currentScene;
 }
 
-void SceneTree::SetCurrentScene(std::weak_ptr<TreeNode> newSceneRoot)
+void SceneTree::SetCurrentScene(TreeNode* newSceneRoot)
 {
     this->currentScene = newSceneRoot;
     RegisterToTree(newSceneRoot);
 }
 
-void SceneTree::RegisterToTree(std::weak_ptr<TreeNode> nodeToRegister)
+void SceneTree::RegisterToTree(TreeNode* nodeToRegister)
 {
+    nodeToRegister->EnterTree(this);
     drawnNodesInScene->push_back(nodeToRegister);
-    nodeToRegister.lock()->EnterTree(this);
 }
 
-void SceneTree::DeRegisterToTree(std::weak_ptr<TreeNode> nodeToDeRegister)
+void SceneTree::DeRegisterToTree(TreeNode* nodeToDeRegister)
 {
     //drawnNodesInScene->erase();
     // TODO: Find in tree and push 

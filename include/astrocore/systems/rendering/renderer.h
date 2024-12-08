@@ -52,7 +52,7 @@ namespace Astrocore
 
         // Basic renderer
         // TODO: Add layer sorting, etc
-            void Render(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw);
+            void Render(std::vector<TreeNode*>* nodesToDraw);
     };
 
 }

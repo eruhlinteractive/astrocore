@@ -35,7 +35,7 @@ namespace Astrocore
             Rectangle GetDestRect();
 
            
-            void DrawToTarget(std::vector<std::weak_ptr<TreeNode>>* nodesToDraw);
+            void DrawToTarget(std::vector<TreeNode*>* nodesToDraw);
             void SetActiveCamera(std::shared_ptr<Camera2D> cam);
             std::shared_ptr<Camera2D> GetActiveCamera();
 

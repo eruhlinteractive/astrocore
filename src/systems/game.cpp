@@ -13,7 +13,7 @@ void Game::Run()
     while(!WindowShouldClose())
 	{
         // Update
-        sceneTree->GetRoot().lock()->Update(GetFrameTime());
+        sceneTree->GetRoot()->Update(GetFrameTime());
         // TODO: Physics Update
        renderer->Render(sceneTree->drawnNodesInScene.get());
     }
